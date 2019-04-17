@@ -24,12 +24,12 @@ public class InstructionActivity extends AppCompatActivity {
     public void ActivateTimerClick(android.view.View view)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 2);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
         Intent myIntent = new Intent(InstructionActivity.this, TimerReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(InstructionActivity.this, 0, myIntent, 0);
         alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-        Toast.makeText(this, "2 min timer set! Closing...", Toast.LENGTH_LONG).show();
-        System.exit(1);
+        Toast.makeText(this, "1 min timer set! Closing...", Toast.LENGTH_LONG).show();
+        finish();
     }
 
 }

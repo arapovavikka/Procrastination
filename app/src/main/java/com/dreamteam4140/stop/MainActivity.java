@@ -16,5 +16,6 @@ public class MainActivity extends AppCompatActivity {
     public void navigateOnOverlay(View view) {
         Intent navigationIntent = new Intent(this, InstructionActivity.class);
         startActivity(navigationIntent);
+        finish();
     }
 }
