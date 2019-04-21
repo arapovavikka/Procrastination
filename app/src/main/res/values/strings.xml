@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StopProcrast</string>
+    <string name="timer_name">Время таймера</string>
+    <string name="relax_time">Время отдыха</string>
 </resources>

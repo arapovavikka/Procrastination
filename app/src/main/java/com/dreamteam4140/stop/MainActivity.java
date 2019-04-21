@@ -13,6 +13,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void openSetTimer(View view) {
+        Intent navigationIntent = new Intent(this, SetTimerActivity.class);
+        startActivity(navigationIntent);
+    }
+
     public void navigateOnOverlay(View view) {
         Intent navigationIntent = new Intent(this, InstructionActivity.class);
         startActivity(navigationIntent);
