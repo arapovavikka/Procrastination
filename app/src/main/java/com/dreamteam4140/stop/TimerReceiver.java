@@ -9,9 +9,15 @@ import android.widget.Toast;
 public class TimerReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        PackageManager pm = context.getPackageManager();
+        Intent overlayIntent = new Intent();
+        overlayIntent.setClassName("com.dreamteam4140.stop", "com.dreamteam4140.stop.OverlayActivity");
+        overlayIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(overlayIntent);
+
+
+        /*PackageManager pm = context.getPackageManager();
         Intent launchIntent = pm.getLaunchIntentForPackage("com.dreamteam4140.stop");
         context.startActivity(launchIntent);
-        Toast.makeText(context, "done!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "done!", Toast.LENGTH_LONG).show();*/
     }
 }
