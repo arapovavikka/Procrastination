@@ -7,4 +7,5 @@
     <color name="colorInclude">#7f22fd</color>
     <color name="backgroundTimer">#ffffff</color>
     <color name="colorBackground">#F2E7FE</color>
+    <color name="overlayTextColor">#BB86FC</color>
 </resources>
