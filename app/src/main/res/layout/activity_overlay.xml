@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_weight="0"
+        android:background="@color/colorAccent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layoutOverlay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/overlayText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="-0.5sp"
+                android:text="ОТДОХНИ"
+                android:textAllCaps="true"
+                android:textColor="@color/overlayTextColor"
+                android:textSize="60sp"
+                android:typeface="normal"
+                app:fontFamily="@font/roboto" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutOverlay2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/layoutOverlay1">
+
+            <LinearLayout
+                android:id="@+id/layoutOverlay2.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/timerText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="75"
+                    android:lineSpacingExtra="-1.5sp"
+                    android:paddingStart="15dp"
+                    android:paddingLeft="15dp"
+                    android:text="@string/time_text"
+                    android:textColor="@color/textColor"
+                    android:textSize="96sp"
+                    android:typeface="normal"
+                    app:fontFamily="@font/roboto" />
+
+                <ImageButton
+                    android:id="@+id/closeX"
+                    android:layout_width="90dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorBackground"
+                    android:contentDescription="closeApp"
+                    android:paddingRight="15dp"
+                    android:paddingEnd="15dp"
+                    android:src="@drawable/x"
+                    app:layout_constraintStart_toEndOf="@+id/timerText"
+                    app:layout_constraintTop_toBottomOf="@+id/overlayText" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
