@@ -1,9 +1,16 @@
 <resources>
-    <string name="app_name">StopProcrast</string>
+    <string name="app_name">Hands off</string>
     <string name="timer_name">Время таймера</string>
     <string name="relax_time">Время отдыха</string>
     <string name="time_text">00:23</string>
     <string name="service_on_text">Сервиc включен</string>
     <string name="service_off_text">Сервиc выключен</string>
     <string name="relax_text">ОТДОХНИ</string>
+
+    <string name="Password_s">Установите пароль, вы сможете его использовать для срочной разблокировки телефона.
+        Не менее 10 цифр.</string>
+    <string name="Password_unlock">Разблокировка паролем</string>
+    <string name="Password_enter">Введите пароль</string>
+    <string name="Save1">Сохранить</string>
+    <string name="Save">Сохранить</string>
 </resources>

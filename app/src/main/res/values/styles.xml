@@ -19,5 +19,23 @@
         <item name="colorControlActivated">@color/textColor</item>
     </style>
 
+    <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Switch</item>
+        <item name="colorPrimaryDark">@color/Switch</item>
+        <item name="colorAccent">@color/Switch</item>
+    </style>
+    <style name="AppTheme.NoActionBar2">
+        <item name="colorPrimary">@color/Switch</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="My_Switch" parent="Theme.AppCompat.Light">
+        <!--активное состояние (30% прозрачности для фона)-->
+        <item name="colorControlActivated">@color/Switch</item>
+        <!--неактивное состояние -->
+        <item name="colorPrimary">@color/Gray</item>
+
+    </style>
 
 </resources>

@@ -61,4 +61,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(navigationIntent);
     }
 
+    public void navigateToPassword(View view) {
+        Intent navigationIntent = new Intent(this, SettingsPasswordActivity.class);
+        startActivity(navigationIntent);
+    }
+
 }

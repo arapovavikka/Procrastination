@@ -114,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
                     android:background="@color/backgroundTimer"
+                    android:onClick="navigateToPassword"
                     android:contentDescription="TODO"
                     android:src="@mipmap/ic_like" />
 

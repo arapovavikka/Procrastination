@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OverlayActivity"></activity>
+        <activity android:name=".SettingsPasswordActivity"></activity>
+        <activity android:name=".OverlayActivity" />
         <activity android:name=".SetTimerActivity" />
         <activity android:name=".InstructionActivity" />
         <activity android:name=".MainActivity">
