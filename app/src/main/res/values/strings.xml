@@ -3,8 +3,8 @@
     <string name="timer_name">Время таймера</string>
     <string name="relax_time">Время отдыха</string>
     <string name="time_text">00:23</string>
-    <string name="service_on_text">Сервиc включен</string>
-    <string name="service_off_text">Сервиc выключен</string>
+    <string name="turnOnService">Сервис включен</string>
+    <string name="turnOfService">Сервис выключен</string>
     <string name="relax_text">ОТДОХНИ</string>
 
     <string name="Password_s">Установите пароль, вы сможете его использовать для срочной разблокировки телефона.

@@ -18,7 +18,7 @@ public class OverlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_overlay);
 
         unlockPassword = AppPreferences.GetInstance(getApplicationContext()).getString(AppPreferences.Key.SETTINGS_PASSWORD_STR);
-        Toast.makeText(getApplicationContext(), "done! " + unlockPassword, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "done! " + unlockPassword, Toast.LENGTH_LONG).show();
     }
 
     public void closeOverlay(View view)

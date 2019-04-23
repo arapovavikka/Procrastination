@@ -7,6 +7,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 
+import com.dreamteam4140.stop.R;
+
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class Timer {
@@ -25,7 +27,7 @@ public class Timer {
 
                 @Override
                 public void onFinish() {
-                    //imageButton.setImageResource(R.mipmap.ic_start_timer);
+                    imageButton.setImageResource(R.mipmap.ic_start_timer);
 
                 }
             }.start();

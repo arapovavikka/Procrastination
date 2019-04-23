@@ -35,14 +35,14 @@
             tools:ignore="NotSibling">
 
             <TextView
-                android:id="@+id/turnOnOfServiceText"
+                android:id="@+id/turnOnAndOfServiceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="60"
                 android:fontFamily="casual"
 
                 android:paddingStart="18dp"
-                android:text="@string/service_off_text"
+                android:text="@string/turnOfService"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="115dp"
@@ -50,7 +50,7 @@
                 android:paddingLeft="18dp" />
 
             <android.support.v7.widget.SwitchCompat
-                android:id="@+id/turnOnOfServiceSwitch"
+                android:id="@+id/turnOnAndOfServiceSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="40"
@@ -79,7 +79,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/timer"
+                    android:id="@+id/timerTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="75"
@@ -92,6 +92,7 @@
                     tools:layout_editor_absoluteY="270dp" />
 
                 <ImageButton
+                    android:id="@+id/buttonStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -159,7 +160,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/timer_title"
+            android:id="@+id/timerTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="16dp"
@@ -176,7 +177,7 @@
             />
 
         <TextView
-            android:id="@+id/time_on_timer"
+            android:id="@+id/timeForUsingPhoneTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/backgroundTimer"
@@ -186,10 +187,10 @@
             android:textColor="@color/textColor"
             android:textSize="60sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timer_title" />
+            app:layout_constraintTop_toBottomOf="@+id/timerTitle" />
 
         <TextView
-            android:id="@+id/relax_title"
+            android:id="@+id/relaxTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openSetTimer"
@@ -202,7 +203,7 @@
             android:textColor="@color/textColor"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_on_timer" />
+            app:layout_constraintTop_toBottomOf="@+id/timeForUsingPhoneTextView" />
     </android.support.constraint.ConstraintLayout>
 
     <TextView
@@ -218,6 +219,7 @@
         android:paddingRight="52dp"
         android:text="0Ч 30 мин"
         android:textColor="@color/textColor"
+        android:id="@+id/relaxTextView"
         android:textSize="60sp" />
 
 

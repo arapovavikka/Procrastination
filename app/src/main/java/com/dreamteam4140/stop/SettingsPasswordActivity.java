@@ -52,11 +52,9 @@ public class SettingsPasswordActivity extends AppCompatActivity {
             if (password.length() >= PASS_LEN) {
                 AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_PASSWORD_STR, password);
                 finish();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "Пароль должен быть не менее 10 цифр!", Toast.LENGTH_LONG).show();
+                return;
             }
         }
-
+        Toast.makeText(getApplicationContext(), "Пароль должен быть не менее 10 цифр!", Toast.LENGTH_LONG).show();
     }
 }
