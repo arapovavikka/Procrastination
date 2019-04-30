@@ -133,6 +133,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "click on like4");
                 break;
             }
+            case R.id.timeForUsingPhoneTextView: {
+                //
+                Intent navigationIntent = new Intent(this, SetTimerActivity.class);
+                startActivity(navigationIntent);
+                break;
+            }
             default: break;
         }
     }
