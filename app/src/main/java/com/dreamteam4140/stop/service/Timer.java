@@ -33,6 +33,23 @@ public class Timer {
             }.start();
         }
 
+    public void  start(final TextView textView, int seconds){
+        if(timeInSeconds!=0) seconds=timeInSeconds;
+        countDownTimer = new CountDownTimer(seconds * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeInSeconds = (int) millisUntilFinished / 1000;
+                textView.setText(getHoursAndMinutes(timeInSeconds));
+            }
+
+            @Override
+            public void onFinish() {
+
+
+            }
+        }.start();
+    }
+
     public void pause (final TextView textView) throws InterruptedException {
         if(countDownTimer!=null) {
             Log.i(TAG, String.valueOf(timeInSeconds));
