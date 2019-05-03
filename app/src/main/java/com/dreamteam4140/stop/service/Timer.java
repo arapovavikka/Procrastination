@@ -45,7 +45,6 @@ public class Timer {
             @Override
             public void onFinish() {
 
-
             }
         }.start();
     }
