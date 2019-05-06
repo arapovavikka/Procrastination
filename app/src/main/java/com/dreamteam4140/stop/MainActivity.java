@@ -107,6 +107,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.like2: {
                 //some activity
+                //for test
+                Intent navigationIntent = new Intent(this, UnlockPasswordActivity.class);
+                startActivity(navigationIntent);
+
                 Log.i(TAG, "click on like2");
                 break;
             }

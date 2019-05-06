@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2"
-    package="com.dreamteam4140.stop">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dreamteam4140.stop"
+    android:versionCode="2">
 
     <application
         android:allowBackup="true"
@@ -9,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsPasswordActivity"></activity>
+        <activity android:name=".UnlockPasswordActivity"></activity>
+        <activity android:name=".SettingsPasswordActivity" />
         <activity android:name=".OverlayActivity" />
         <activity android:name=".SetTimerActivity" />
         <activity android:name=".InstructionActivity" />

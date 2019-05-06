@@ -9,6 +9,8 @@
 
     <string name="Password_s">Установите пароль, вы сможете его использовать для срочной разблокировки телефона.
         Не менее 10 цифр.</string>
+    <string name="Password_unl">Ведите пароль, чтобы
+       \n разблокировать телефон</string>
     <string name="Password_unlock">Разблокировка паролем</string>
     <string name="Password_enter">Введите пароль</string>
     <string name="Save1">Сохранить</string>
