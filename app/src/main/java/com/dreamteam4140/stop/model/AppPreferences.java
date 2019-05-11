@@ -14,7 +14,8 @@ public class AppPreferences {
 
     public enum Key {
         SETTINGS_PASSWORD_STR,
-        PASSWORD_ENABLED
+        PASSWORD_ENABLED,
+        TIMER_TIME
     }
 
     private AppPreferences(Context context) {

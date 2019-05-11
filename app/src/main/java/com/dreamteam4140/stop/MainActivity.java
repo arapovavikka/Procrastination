@@ -1,24 +1,24 @@
 package com.dreamteam4140.stop;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
-import android.annotation.SuppressLint;
-import android.util.Log;
-import android.view.View;
 import android.content.Intent;
-import android.widget.CompoundButton;
-import android.support.annotation.StringRes;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ImageButton;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.dreamteam4140.stop.model.AppPreferences;
+import com.dreamteam4140.stop.service.Timer;
 
 import java.util.Calendar;
-import com.dreamteam4140.stop.service.Timer;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AlarmManager alarmManager;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initialize();
         setOnClickListeners();
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        loadText();
+        load();
     }
 
     private void navigateOnOverlay() {
@@ -62,12 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(navigationIntent);
         finish();
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.turnOnAndOfServiceSwitch: {
                 //some activity
-                Log.i(TAG, "click on switch"+turnOnAndOfServiceSwitch.isChecked());
+                Log.i(TAG, "click on switch" + turnOnAndOfServiceSwitch.isChecked());
                 controlService(turnOnAndOfServiceSwitch.isChecked());
 
                 break;
@@ -76,15 +76,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //start timer
                 //turn on "switch
                 Log.i(TAG, "click on buttonStart");
-                if(!timerStarted){
-                    if(!turnOnAndOfServiceSwitch.isChecked()){
+                if (!timerStarted) {
+                    if (!turnOnAndOfServiceSwitch.isChecked()) {
                         controlService(true);
                         turnOnAndOfServiceSwitch.setChecked(true);
                     }
                     buttonStart.setImageResource(R.mipmap.ic_pause_timer);
-                    timer.start(timerTextView,30,buttonStart);
-                }
-                else {
+                    timer.start(timerTextView, 30, buttonStart);
+                } else {
 
                     buttonStart.setImageResource(R.mipmap.ic_start_timer);
                     try {
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         e.printStackTrace();
                     }
                 }
-                timerStarted=!timerStarted;
+                timerStarted = !timerStarted;
                 //navigateOnOverlay();
                 break;
             }
@@ -143,33 +142,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(navigationIntent);
                 break;
             }
-            default: break;
+            default:
+                break;
         }
     }
 
     @SuppressLint("WrongViewCast")
     private void initialize() {
         res = getResources();
-        timer =new Timer();
+        timer = new Timer();
         timerStarted = false;
 
-        relaxTextView = (TextView) findViewById(R.id.relaxTextView);
-        timeForUsingPhoneTextView = (TextView) findViewById(R.id.timeForUsingPhoneTextView);
-        timerTextView = (TextView) findViewById(R.id.timerTextView);
-        turnOnAndOfServiceText = (TextView) findViewById(R.id.turnOnAndOfServiceText);
+        relaxTextView = findViewById(R.id.relaxTextView);
+        timeForUsingPhoneTextView = findViewById(R.id.timeForUsingPhoneTextView);
+        timerTextView = findViewById(R.id.timerTextView);
+        turnOnAndOfServiceText = findViewById(R.id.turnOnAndOfServiceText);
 
-        turnOnAndOfServiceSwitch = (SwitchCompat) findViewById(R.id.turnOnAndOfServiceSwitch);
+        turnOnAndOfServiceSwitch = findViewById(R.id.turnOnAndOfServiceSwitch);
 
-        buttonStart = (ImageButton) findViewById(R.id.buttonStart);
-        like1 = (ImageButton) findViewById(R.id.like1);
-        formula = (ImageButton) findViewById(R.id.formula);
-        like2 = (ImageButton) findViewById(R.id.like2);
-        like3 = (ImageButton) findViewById(R.id.like3);
-        like4 = (ImageButton) findViewById(R.id.like4);
+        buttonStart = findViewById(R.id.buttonStart);
+        like1 = findViewById(R.id.like1);
+        formula = findViewById(R.id.formula);
+        like2 = findViewById(R.id.like2);
+        like3 = findViewById(R.id.like3);
+        like4 = findViewById(R.id.like4);
 
 
     }
-    private void setOnClickListeners(){
+
+    private void setOnClickListeners() {
         relaxTextView.setOnClickListener(this);
         timeForUsingPhoneTextView.setOnClickListener(this);
 
@@ -183,12 +184,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         turnOnAndOfServiceSwitch.setOnClickListener(this);
     }
 
-    private void controlService(boolean turnOnService){
-        if(turnOnService){
+    private void controlService(boolean turnOnService) {
+        if (turnOnService) {
             turnOnAndOfServiceText.setText(res.getText(R.string.turnOnService));
             buttonStart.setActivated(true);
-        }
-        else {
+        } else {
             turnOnAndOfServiceText
                     .setText(res.getText(R.string.turnOfService));
             try {
@@ -202,32 +202,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void saveText() {
-        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        String [] time =timerTextView.getText().toString().split(":");
-        int seconds = Integer.parseInt(time[0])*60+Integer.parseInt(time[1]);
+    private void save() {
+        String[] time = timerTextView.getText().toString().split(":");
+        int seconds = Integer.parseInt(time[0]) * 60 + Integer.parseInt(time[1]);
         Log.i(TAG, String.valueOf(seconds));
-        ed.putInt(SAVED_TIME, seconds);
-        ed.commit();
-
-
+        AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.TIMER_TIME, seconds);
 
     }
 
 
-    private void loadText() {
-        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        int second = sPref.getInt(SAVED_TIME, 0);
-        if(second!=0){
+    private void load() {
+        int second = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.TIMER_TIME);
+        if (second != 0) {
             controlService(true);
-            timerStarted=true;
+            timerStarted = true;
             turnOnAndOfServiceSwitch.setChecked(true);
             buttonStart.setImageResource(R.mipmap.ic_pause_timer);
-            timer.start(timerTextView,second,buttonStart);
-        }
-        else {
-
+            timer.start(timerTextView, second, buttonStart);
         }
 
     }
@@ -235,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        saveText();
+        save();
     }
 
     public void openSetTimer(View view) {
