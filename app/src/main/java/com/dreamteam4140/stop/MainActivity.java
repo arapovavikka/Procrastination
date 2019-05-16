@@ -127,14 +127,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ExitActivity.exitApplication(getApplicationContext());
                 break;
             }
-            case R.id.like3: {
+            case R.id.relaxTextView: {
                 //some activity
-                Log.i(TAG, "click on like3");
-                break;
-            }
-            case R.id.like4: {
-                //some activity
-                Log.i(TAG, "click on like4");
+                Intent navigationIntent = new Intent(this, SetTimerActivity.class);
+                startActivity(navigationIntent);
                 break;
             }
             case R.id.timeForUsingPhoneTextView: {
@@ -166,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         formula = findViewById(R.id.formula);
         like2 = findViewById(R.id.like2);
         like3 = findViewById(R.id.like3);
-        like4 = findViewById(R.id.like4);
 
 
     }
@@ -180,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         formula.setOnClickListener(this);
         like2.setOnClickListener(this);
         like3.setOnClickListener(this);
-        like4.setOnClickListener(this);
 
         turnOnAndOfServiceSwitch.setOnClickListener(this);
     }

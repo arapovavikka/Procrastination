@@ -50,7 +50,7 @@ public class SetTimerActivity extends AppCompatActivity {
             number = 0;
         }
 
-        _hourTextView.setText(Integer.toString(number));
+        _hourTextView.setText(NumberToStr(number));
     }
 
     public int CheckConstraint(int value, int maxValue, Operation sign, TimeType timeType)
@@ -97,7 +97,7 @@ public class SetTimerActivity extends AppCompatActivity {
             number = 0;
         }
 
-        _hourTextView.setText(Integer.toString(number));
+        _hourTextView.setText(NumberToStr(number));
     }
 
     public void minusMinClicked(View view)
@@ -113,7 +113,7 @@ public class SetTimerActivity extends AppCompatActivity {
             number = 0;
         }
 
-        _minutesTextView.setText(Integer.toString(number));
+        _minutesTextView.setText(NumberToStr(number));
     }
 
     public void plusMinClicked(View view)
@@ -129,7 +129,12 @@ public class SetTimerActivity extends AppCompatActivity {
             number = 0;
         }
 
-        _minutesTextView.setText(Integer.toString(number));
+        _minutesTextView.setText(NumberToStr(number));
+    }
+
+    private String NumberToStr(int number)
+    {
+        return (number < 10 ? "0" : "") + Integer.toString(number);
     }
 
     public void saveTimer(View view)
