@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UnlockPasswordActivity"></activity>
+        <activity
+            android:name=".activity.ExitActivity"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:autoRemoveFromRecents="true"/>
+        <activity android:name=".UnlockPasswordActivity" />
         <activity android:name=".SettingsPasswordActivity" />
         <activity android:name=".OverlayActivity" />
         <activity android:name=".SetTimerActivity" />

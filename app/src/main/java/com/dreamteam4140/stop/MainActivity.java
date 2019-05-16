@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dreamteam4140.stop.activity.ExitActivity;
 import com.dreamteam4140.stop.model.AppPreferences;
 import com.dreamteam4140.stop.service.Timer;
 
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
                 alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
                 Toast.makeText(getApplicationContext(), "Установлен таймер на 1 минуту!", Toast.LENGTH_LONG).show();
-                finish();
+                ExitActivity.exitApplication(getApplicationContext());
                 break;
             }
             case R.id.like3: {

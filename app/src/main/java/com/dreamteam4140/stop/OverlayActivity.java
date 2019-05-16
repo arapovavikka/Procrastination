@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dreamteam4140.stop.activity.ExitActivity;
 import com.dreamteam4140.stop.model.AppPreferences;
 import com.dreamteam4140.stop.service.Timer;
 
@@ -37,6 +38,6 @@ public class OverlayActivity extends AppCompatActivity {
         return false;
     }
     public void closeOverlay(View view) {
-        finish();
+        ExitActivity.exitApplication(getApplicationContext());
     }
 }
