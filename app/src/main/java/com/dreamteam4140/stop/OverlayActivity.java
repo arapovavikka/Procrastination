@@ -1,5 +1,6 @@
 package com.dreamteam4140.stop;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -38,6 +39,8 @@ public class OverlayActivity extends AppCompatActivity {
         return false;
     }
     public void closeOverlay(View view) {
-        ExitActivity.exitApplication(getApplicationContext());
+        Intent navigationIntent = new Intent(this, UnlockPasswordActivity.class);
+        startActivity(navigationIntent);
+        //ExitActivity.exitApplication(getApplicationContext());
     }
 }

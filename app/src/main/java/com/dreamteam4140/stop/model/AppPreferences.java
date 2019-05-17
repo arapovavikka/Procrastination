@@ -15,7 +15,15 @@ public class AppPreferences {
     public enum Key {
         SETTINGS_PASSWORD_STR,
         PASSWORD_ENABLED,
-        TIMER_TIME
+        TIMER_TIME,
+
+        SETTINGS_RELAX_TIME_HOUR,
+        SETTINGS_RELAX_TIME_MIN,
+
+        SETTINGS_WORK_TIME_HOUR,
+        SETTINGS_WORK_TIME_MIN,
+
+        NAVIGATE_TO_RELAX_TIMER
     }
 
     private AppPreferences(Context context) {
