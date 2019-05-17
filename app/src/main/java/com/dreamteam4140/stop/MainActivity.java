@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton formula;
     private ImageButton like2;
     private ImageButton like3;
-    private ImageButton like4;
 
     private SwitchCompat turnOnAndOfServiceSwitch;
     private Resources res;
@@ -55,12 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setOnClickListeners();
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         load();
-    }
-
-    private void navigateOnOverlay() {
-        Intent navigationIntent = new Intent(this, InstructionActivity.class);
-        startActivity(navigationIntent);
-        finish();
     }
 
     @Override
@@ -130,12 +123,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.relaxTextView: {
                 //some activity
                 Intent navigationIntent = new Intent(this, SetTimerActivity.class);
+                navigationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.NAVIGATE_TO_RELAX_TIMER, true);
                 startActivity(navigationIntent);
                 break;
             }
             case R.id.timeForUsingPhoneTextView: {
                 //
                 Intent navigationIntent = new Intent(this, SetTimerActivity.class);
+                navigationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.NAVIGATE_TO_RELAX_TIMER, false);
                 startActivity(navigationIntent);
                 break;
             }
@@ -143,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
 
     @SuppressLint("WrongViewCast")
     private void initialize() {
@@ -219,71 +217,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        getTimerRelaxText();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTimerRelaxText();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         save();
     }
 
-    public void openSetTimer(View view) {
-        Intent navigationIntent = new Intent(this, SetTimerActivity.class);
-        startActivity(navigationIntent);
-    }
-
-    public void navigateToPassword(View view) {
-        Intent navigationIntent = new Intent(this, SettingsPasswordActivity.class);
-        startActivity(navigationIntent);
-    }
-
-}
-
-
-
-
-
-
-
-/*{
-
-    private PendingIntent pendingIntent;
-    AlarmManager alarmManager;
-
-    SwitchCompat serviceSwitch;
-    TextView serviceTextView;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        serviceTextView = findViewById(R.id.turnOnOfServiceText);
-
-        serviceSwitch = findViewById(R.id.turnOnOfServiceSwitch);
-        serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    serviceTextView.setText(getString(R.string.service_on_text));
-                    ActivateTimerClick();
-                }
-                else {
-                    serviceTextView.setText(getString(R.string.service_off_text));
-                }
-            }
-        });
-    }
-
-    public void ActivateTimerClick()
+    private void getTimerRelaxText()
     {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
-        Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-        Toast.makeText(this, "1 min timer set! Closing...", Toast.LENGTH_LONG).show();
-        finish();
+        int relaxMin = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0);
+        int relaxHour = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0);
+        if (relaxHour != 0 && relaxMin != 0)
+            relaxTextView.setText(relaxHour + "Ч " + relaxMin + " мин");
     }
-
 
     public void openSetTimer(View view) {
         Intent navigationIntent = new Intent(this, SetTimerActivity.class);
@@ -295,7 +252,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(navigationIntent);
     }
 
-
-
 }
-*/

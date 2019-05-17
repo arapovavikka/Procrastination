@@ -166,7 +166,7 @@
                     android:textSize="14sp"
                     android:textColor="#673AB7"
                     android:background="@color/White"
-                    android:onClick="closeLayout"
+                    android:onClick="saveTimer"
                     android:text="Готово" />
             </LinearLayout>
         </LinearLayout>

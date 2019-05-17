@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.dreamteam4140.stop.model.AppPreferences;
+
 public class SetTimerActivity extends AppCompatActivity {
 
     private int MAX_HOUR = 23;
@@ -23,19 +25,23 @@ public class SetTimerActivity extends AppCompatActivity {
         HOUR
     }
 
+    private boolean _timerRelax;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_timer);
 
+        _timerRelax = AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.NAVIGATE_TO_RELAX_TIMER);
+
         _hourTextView = findViewById(R.id.hourTextView);
         _minutesTextView = findViewById(R.id.minutesTextView);
     }
 
-    public void closeLayout(View view)
+    /*public void closeLayout(View view)
     {
         finish();
-    }
+    }*/
 
     public void plusHourClicked(View view)
     {
@@ -139,6 +145,16 @@ public class SetTimerActivity extends AppCompatActivity {
 
     public void saveTimer(View view)
     {
-
+        if (_timerRelax)
+        {
+            AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, Integer.parseInt(_hourTextView.getText().toString()));
+            AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, Integer.parseInt(_minutesTextView.getText().toString()));
+        }
+        else
+        {
+            AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, Integer.parseInt(_hourTextView.getText().toString()));
+            AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_WORK_TIME_MIN, Integer.parseInt(_minutesTextView.getText().toString()));
+        }
+        finishActivity(0);
     }
 }
