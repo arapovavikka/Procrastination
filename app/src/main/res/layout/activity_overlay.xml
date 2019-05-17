@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_weight="0"
-        android:background="@color/colorAccent"
-        android:orientation="vertical">
-
-    </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +15,7 @@
             android:id="@+id/layoutOverlay1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="120dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -32,14 +24,13 @@
                 android:id="@+id/overlayText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="Roboto"
                 android:gravity="center"
-                android:lineSpacingExtra="-0.5sp"
                 android:text="@string/relax_text"
                 android:textAllCaps="true"
-                android:textColor="@color/overlayTextColor"
+                android:textColor="@color/Switch"
                 android:textSize="60sp"
-                android:typeface="normal"
-                app:fontFamily="@font/roboto" />
+                android:textStyle="normal|normal" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,32 +45,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="4">
+                android:weightSum="3">
 
                 <TextView
                     android:id="@+id/timerText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/time_text"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/Black2"
                     android:textSize="96sp"
-                    android:typeface="normal"
-                    app:fontFamily="@font/roboto" />
+                    android:textStyle="normal|normal" />
 
                 <ImageButton
                     android:id="@+id/closeX"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:background="@color/colorBackground"
                     android:contentDescription="closeOverlay"
                     android:gravity="left|center_vertical"
                     android:onClick="closeOverlay"
-                    android:src="@drawable/x"
+                    android:src="@mipmap/ic_close"
                     app:layout_constraintStart_toEndOf="@+id/timerText"
-                    app:layout_constraintTop_toBottomOf="@+id/overlayText" />
+                    app:layout_constraintTop_toBottomOf="@+id/overlayText"
+                    tools:background="@color/colorBackground" />
 
             </LinearLayout>
         </LinearLayout>
