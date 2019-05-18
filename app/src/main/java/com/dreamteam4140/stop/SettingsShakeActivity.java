@@ -6,14 +6,21 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
+import com.appyvet.materialrangebar.RangeBar;
 import com.dreamteam4140.stop.model.AppPreferences;
-
-import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 public class SettingsShakeActivity extends AppCompatActivity {
 
     Switch _switchShakeSett;
+
+    TextView _minSeekBar;
+    TextView _maxSeekBar;
+
+    //RangeSlider Github
+    //https://github.com/oli107/material-range-bar
+    RangeBar _rangeBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +28,7 @@ public class SettingsShakeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shake_settings);
 
         _switchShakeSett = findViewById(R.id.switchShakeSett);
-
         _switchShakeSett.setChecked(AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.SHAKER_ENABLED, false));
-
         _switchShakeSett.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -37,24 +42,52 @@ public class SettingsShakeActivity extends AppCompatActivity {
             }
         });
 
+        _minSeekBar = findViewById(R.id.minValueSeekBar);
 
-        // Setup the new range seek bar
-        RangeSeekBar<Integer> rangeSeekBar = new RangeSeekBar<>(this);
-        // Set the range
-        rangeSeekBar.setRangeValues(15, 90);
-        rangeSeekBar.setSelectedMinValue(20);
-        rangeSeekBar.setSelectedMaxValue(88);
+        int min = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_SHAKER_MIN_TIME, 0);
+        _minSeekBar.setText(String.valueOf(min));
 
-        // Add to layout
-        FrameLayout layout = (FrameLayout) findViewById(R.id.seekbar_placeholder);
-        layout.addView(rangeSeekBar);
+        _maxSeekBar = findViewById(R.id.maxValueSeekBar);
+        int max = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_SHAKER_MAX_TIME, 5);
+        _maxSeekBar.setText(String.valueOf(max));
 
-        // Seek bar for which we will set text color in code
-        //RangeSeekBar rangeSeekBarTextColorWithCode = (RangeSeekBar) findViewById(R.id.rangeSeekBarTextColorWithCode);
-        //rangeSeekBarTextColorWithCode.setTextAboveThumbsColorResource(android.R.color.holo_blue_bright);
+
+        _rangeBar = findViewById(R.id.rangebar);
+        _rangeBar.setRangePinsByValue(min, max);
+
+        _rangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
+                _minSeekBar.setText(leftPinValue);
+                _maxSeekBar.setText(rightPinValue);
+            }
+
+            @Override
+            public void onTouchEnded(RangeBar rangeBar) {
+
+            }
+
+            @Override
+            public void onTouchStarted(RangeBar rangeBar) {
+
+            }
+        });
+
     }
 
     public void saveShakeSetting(View view) {
+        saveSettings();
         finish();
+    }
+
+    public void saveSettings() {
+        AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_SHAKER_MIN_TIME, Integer.parseInt(_minSeekBar.getText().toString()));
+        AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_SHAKER_MAX_TIME, Integer.parseInt(_maxSeekBar.getText().toString()));
+    }
+
+    @Override
+    public void onBackPressed() {
+        saveSettings();
+        super.onBackPressed();
     }
 }

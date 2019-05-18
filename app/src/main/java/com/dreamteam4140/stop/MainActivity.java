@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import com.dreamteam4140.stop.service.Timer;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private static final String TAG = "MainActivity";
 
     private TextView relaxTextView;
@@ -29,11 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView turnOnAndOfServiceText;
     private TextView timeForUsingPhoneTextView;
 
-    private ImageButton like1;
+    private ImageButton sliderButton;
     private ImageButton buttonStart;
-    private ImageButton formula;
-    private ImageButton like2;
-    private ImageButton like3;
+    private ImageButton formulaButton;
+    private ImageButton passwordButton;
+    private ImageButton shakeButton;
 
     private SwitchCompat turnOnAndOfServiceSwitch;
     private Resources res;
@@ -44,8 +45,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean timerStarted;
     private PendingIntent pendingIntent;
     private AlarmManager alarmManager;
+    private String finishedTime;
+    private AppPreferences appPreferences;
+    private int seconds;
 
-
+    private enum TimerSTATUS {
+        STARTING,
+        PAUSE,
+        CANCLE
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,35 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.turnOnAndOfServiceSwitch: {
-                //some activity
-                Log.i(TAG, "click on switch" + turnOnAndOfServiceSwitch.isChecked());
-                controlService(turnOnAndOfServiceSwitch.isChecked());
-
-                break;
-            }
             case R.id.buttonStart: {
-                //start timer
-                //turn on "switch
-                Log.i(TAG, "click on buttonStart");
-                if (!timerStarted) {
-                    if (!turnOnAndOfServiceSwitch.isChecked()) {
-                        controlService(true);
-                        turnOnAndOfServiceSwitch.setChecked(true);
-                    }
-                    buttonStart.setImageResource(R.mipmap.ic_pause_timer);
-                    timer.start(timerTextView, 30, buttonStart);
-                } else {
-
-                    buttonStart.setImageResource(R.mipmap.ic_start_timer);
-                    try {
-                        timer.pause(timerTextView);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                timerStarted = !timerStarted;
-                //navigateOnOverlay();
+                setTimerStatus(!timerStarted);
                 break;
             }
             case R.id.sliderButton: {
@@ -147,22 +128,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @SuppressLint("WrongViewCast")
     private void initialize() {
+        seconds = 0;
+        appPreferences = AppPreferences.GetInstance(getApplicationContext());
         res = getResources();
-        timer = new Timer();
+        timer = new Timer(res);
         timerStarted = false;
-
         relaxTextView = findViewById(R.id.relaxTextView);
         timeForUsingPhoneTextView = findViewById(R.id.timeForUsingPhoneTextView);
         timerTextView = findViewById(R.id.timerTextView);
         turnOnAndOfServiceText = findViewById(R.id.turnOnAndOfServiceText);
-
         turnOnAndOfServiceSwitch = findViewById(R.id.turnOnAndOfServiceSwitch);
-
         buttonStart = findViewById(R.id.buttonStart);
-        like1 = findViewById(R.id.sliderButton);
-        formula = findViewById(R.id.formulaButton);
-        like2 = findViewById(R.id.passwordButton);
-        like3 = findViewById(R.id.shakeButton);
+        sliderButton = findViewById(R.id.sliderButton);
+        formulaButton = findViewById(R.id.formulaButton);
+        passwordButton = findViewById(R.id.passwordButton);
+        shakeButton = findViewById(R.id.shakeButton);
 
 
     }
@@ -171,51 +151,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         relaxTextView.setOnClickListener(this);
         timeForUsingPhoneTextView.setOnClickListener(this);
 
-        like1.setOnClickListener(this);
+        sliderButton.setOnClickListener(this);
         buttonStart.setOnClickListener(this);
-        formula.setOnClickListener(this);
-        like2.setOnClickListener(this);
-        like3.setOnClickListener(this);
-
-        turnOnAndOfServiceSwitch.setOnClickListener(this);
-    }
-
-    private void controlService(boolean turnOnService) {
-        if (turnOnService) {
-            turnOnAndOfServiceText.setText(res.getText(R.string.turnOnService));
-            buttonStart.setActivated(true);
-        } else {
-            turnOnAndOfServiceText
-                    .setText(res.getText(R.string.turnOfService));
-            try {
-                timer.cancle(timerTextView);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            buttonStart.setImageResource(R.mipmap.ic_start_timer);
-        }
-
-
+        formulaButton.setOnClickListener(this);
+        passwordButton.setOnClickListener(this);
+        shakeButton.setOnClickListener(this);
+        turnOnAndOfServiceSwitch.setOnCheckedChangeListener(this);
     }
 
     private void save() {
-        String[] time = timerTextView.getText().toString().split(":");
-        int seconds = Integer.parseInt(time[0]) * 60 + Integer.parseInt(time[1]);
-        Log.i(TAG, String.valueOf(seconds));
-        AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.TIMER_TIME, seconds);
+        appPreferences.put(AppPreferences.Key.TIMER_FINISHED_TIME, timer.getFinishedTimer());
+        appPreferences.put(AppPreferences.Key.TIMER_TIME, seconds);
+        checkConditionOfTimer();
 
     }
 
 
     private void load() {
-        int second = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.TIMER_TIME);
-        if (second != 0) {
-            controlService(true);
-            timerStarted = true;
-            turnOnAndOfServiceSwitch.setChecked(true);
-            buttonStart.setImageResource(R.mipmap.ic_pause_timer);
-            timer.start(timerTextView, second, buttonStart);
+        timerStarted=appPreferences.getBool(AppPreferences.Key.IS_PLAY);
+        /*Log.i(TAG, "LOAD");
+        Log.i(TAG, "turnOnAndOfServiceSwitch.isChecked()  "+appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
+        Log.i(TAG, "timerStarted  "+appPreferences.getBool(AppPreferences.Key.IS_PLAY));
+        Log.i(TAG, "-------------");*/
+
+        timeForUsingPhoneTextView.setText(String.format(res.getString(R.string.timer),
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR,0),
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0)));
+        relaxTextView.setText(String.format(res.getString(R.string.timer),
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR,0),
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN,0)));
+
+        if(appPreferences.getBool(AppPreferences.Key.IS_CHANGE_TIME)){
+            int hours = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR,0);
+            int minutes = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0);
+            setServiceStatus(false);
+            timerTextView.setText(String.format("%02d", hours) + ":"
+                    + String.format("%02d", minutes));
+            seconds=Timer.getSecondsByTimerTextView(timerTextView.getText().toString());
         }
+        else {
+            seconds=appPreferences.getInt(AppPreferences.Key.TIMER_TIME,0);
+            timerTextView.setText(Timer.getByTimerTextViewSeconds(seconds));
+            setServiceStatus(appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
+            setTimerStatus(timerStarted);
+        }
+        appPreferences.put(AppPreferences.Key.IS_CHANGE_TIME, false);
+
+
 
     }
 
@@ -235,9 +217,191 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         save();
+
     }
 
-    private void getTimerRelaxText()
+    private void getTimerRelaxText() {
+
+    }
+
+    public void openSetTimer(View view) {
+        Intent navigationIntent = new Intent(this, SetTimerActivity.class);
+        startActivity(navigationIntent);
+    }
+
+    public void navigateToPassword(View view) {
+        Intent navigationIntent = new Intent(this, SettingsPasswordActivity.class);
+        startActivity(navigationIntent);
+    }
+
+    private void checkConditionOfTimer() {
+        Log.i(TAG, "SAVE");
+        Log.i(TAG, "turnOnAndOfServiceSwitch.isChecked()  "+turnOnAndOfServiceSwitch.isChecked());
+        Log.i(TAG, "timerStarted  "+timerStarted);
+        Log.i(TAG, "-------------");
+        appPreferences.put(AppPreferences.Key.TURN_ON_OF_SERVICE, turnOnAndOfServiceSwitch.isChecked());
+        if (timerStarted) {
+            appPreferences.put(AppPreferences.Key.IS_PLAY, true);
+        } else {
+            appPreferences.put(AppPreferences.Key.IS_PLAY, false);
+        }
+
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        setServiceStatus(isChecked);
+    }
+
+
+    private void setTimerStatus(boolean startTimer) {
+
+        Log.i(TAG, "click on buttonStart");
+
+        Log.i(TAG, "Switch is checked" + turnOnAndOfServiceSwitch.isChecked() + "\n");
+        Log.i(TAG, "--------------");
+        if(turnOnAndOfServiceSwitch.isChecked()) {
+            if (startTimer) {
+                setTimerStatus(TimerSTATUS.STARTING);
+                buttonStart.setImageResource(R.mipmap.ic_pause_timer);
+            } else {
+                setTimerStatus(TimerSTATUS.PAUSE);
+                buttonStart.setImageResource(R.mipmap.ic_start_timer);
+            }
+            timerStarted = startTimer;
+        }
+
+        Log.i(TAG, "timerStarted  "+timerStarted);
+                /*if (timerStarted) {
+                    Log.d(TAG, "Change button image");
+                    buttonStart.setImageResource(R.mipmap.ic_pause_timer);
+                    timer.start(timerTextView, seconds, buttonStart);
+                } else {
+                    Log.d(TAG, "Change button image");
+                    buttonStart.setImageResource(R.mipmap.ic_start_timer);
+                    try {
+                        timer.pause(timerTextView);
+                    } catch (InterruptedException ignored) {
+
+                    }
+                }
+                timerStarted = !timerStarted;
+                if (timerStarted) {
+                    Log.d(TAG, "Time starting");
+                } else {
+                    Log.d(TAG, "Time stopped");
+                }*/
+        //navigateOnOverlay();
+
+    }
+    private void  setServiceStatus(boolean isChecked){
+        Log.i(TAG, "Отслеживание переключения: " + (isChecked ? "on" : "off"));
+       turnOnAndOfServiceSwitch.setChecked(isChecked);
+        if (isChecked) {
+            turnOnAndOfServiceText.setText(res.getText(R.string.turnOnService));
+        } else {
+            turnOnAndOfServiceText.setText(res.getText(R.string.turnOfService));
+            setTimerStatus(TimerSTATUS.CANCLE);
+            timerStarted=false;
+            seconds=0;
+            buttonStart.setImageResource(R.mipmap.ic_start_timer);
+        }
+    }
+
+
+private void setTimerStatus (TimerSTATUS status){
+        switch (status){
+            case STARTING:{
+                Log.d(TAG, "Seconds"+seconds );
+                timer.start(timerTextView, seconds, buttonStart);
+                Log.d(TAG, "Turn On Timer " );
+                break;
+            }
+            case PAUSE:{
+                try {
+                    timer.pause(timerTextView);
+                } catch (InterruptedException ignored) {
+
+                }
+                Log.d(TAG, "Pause Timer " );
+                break;
+            }
+            case CANCLE:{
+                Log.d(TAG, "Cancle Timer " );
+                try {
+                    timer.cancle(timerTextView);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+
+        }
+
+
+}
+}
+
+/*  private void controlService(boolean turnOnService, boolean timerIsStarted) {
+        buttonStart.setImageResource(R.mipmap.ic_pause_timer);
+        Log.d(TAG, "turnOnService " + turnOnService);
+        if (turnOnService) {
+            turnOnAndOfServiceText.setText(res.getText(R.string.turnOnService));
+            turnOnAndOfServiceSwitch.setActivated(true);
+            buttonStart.setActivated(true);
+
+
+        } else {
+            turnOnAndOfServiceText
+                    .setText(res.getText(R.string.turnOfService));
+            turnOnAndOfServiceSwitch.setActivated(false);
+            buttonStart.setActivated(false);
+            try {
+                timer.cancle(timerTextView);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "Change button image");
+            buttonStart.setImageResource(R.mipmap.ic_start_timer);
+        }
+
+
+    }*/
+
+
+/*{
+
+    private PendingIntent pendingIntent;
+    AlarmManager alarmManager;
+
+    SwitchCompat serviceSwitch;
+    TextView serviceTextView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        serviceTextView = findViewById(R.id.turnOnOfServiceText);
+
+        serviceSwitch = findViewById(R.id.turnOnOfServiceSwitch);
+        serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    serviceTextView.setText(getString(R.string.service_on_text));
+                    ActivateTimerClick();
+                }
+                else {
+                    serviceTextView.setText(getString(R.string.service_off_text));
+                }
+            }
+        });
+    }
+
+    public void ActivateTimerClick()
     {
         int relaxMin = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0);
         int relaxHour = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0);
@@ -256,3 +420,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 }
+*/
