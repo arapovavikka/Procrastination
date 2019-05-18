@@ -46,8 +46,8 @@ public class SettingsShakeActivity extends AppCompatActivity {
         rangeSeekBar.setSelectedMaxValue(88);
 
         // Add to layout
-        FrameLayout layout = (FrameLayout) findViewById(R.id.seekbar_placeholder);
-        layout.addView(rangeSeekBar);
+        //FrameLayout layout = (FrameLayout) findViewById(R.id.seekbar_placeholder);
+        //layout.addView(rangeSeekBar);
 
         // Seek bar for which we will set text color in code
         //RangeSeekBar rangeSeekBarTextColorWithCode = (RangeSeekBar) findViewById(R.id.rangeSeekBarTextColorWithCode);

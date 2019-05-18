@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsSliderActivity"></activity>
+        <activity android:name=".TortureActivity"></activity>
+        <activity android:name=".SettingsSliderActivity" />
         <activity android:name=".SettingsShakeActivity" />
         <activity
             android:name=".activity.ExitActivity"
