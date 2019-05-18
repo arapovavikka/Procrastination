@@ -92,7 +92,6 @@
                     android:background="@color/backgroundTimer"
                     android:baselineAlignBottom="false"
                     android:contentDescription="TODO"
-                    android:onClick="navigateOnOverlay"
                     android:src="@mipmap/ic_start_timer" />
             </LinearLayout>
 
@@ -103,17 +102,16 @@
                 android:weightSum="80">
 
                 <ImageButton
-                    android:id="@+id/like1"
+                    android:id="@+id/sliderButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/backgroundTimer"
                     android:layout_weight="20"
-                    android:onClick="navigateToPassword"
                     android:contentDescription="TODO"
                     android:src="@mipmap/slider_button" />
 
                 <ImageButton
-                    android:id="@+id/formula"
+                    android:id="@+id/passwordButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="20"
@@ -122,7 +120,7 @@
                     android:src="@mipmap/password_button" />
 
                 <ImageButton
-                    android:id="@+id/like2"
+                    android:id="@+id/formulaButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
@@ -131,7 +129,7 @@
                     android:src="@mipmap/math_button" />
 
                 <ImageButton
-                    android:id="@+id/like3"
+                    android:id="@+id/shakeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="20"

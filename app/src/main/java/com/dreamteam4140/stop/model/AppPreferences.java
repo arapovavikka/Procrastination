@@ -17,6 +17,9 @@ public class AppPreferences {
         PASSWORD_ENABLED,
         TIMER_TIME,
 
+        SLIDER_ENABLED,
+        SHAKER_ENABLED,
+
         SETTINGS_RELAX_TIME_HOUR,
         SETTINGS_RELAX_TIME_MIN,
 

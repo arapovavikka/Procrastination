@@ -26,23 +26,24 @@
                 android:id="@+id/shakeSettTitleText"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_gravity="end"
                 android:layout_toLeftOf="@+id/switchShakeSett"
                 android:fontFamily="Roboto"
                 android:padding="10dp"
-                android:text="@string/Shake_unlock"
+                android:text="@string/Password_unlock"
                 android:textColor="@color/Black"
                 android:textSize="20sp"
                 android:textStyle="normal" />
 
             <Switch
                 android:id="@+id/switchShakeSett"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:checked="true"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="3dp"
                 android:theme="@style/My_Switch"
                 tools:ignore="RtlSymmetry" />
 
@@ -68,11 +69,10 @@
             android:orientation="vertical">
 
 
-            <org.florescu.android.rangeseekbar.RangeSeekBar
-                android:id="@+id/pricebar_with_label"
+            <FrameLayout
+                android:id="@+id/seekbar_placeholder"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-
+                android:layout_height="30dp"
                 />
 
             <LinearLayout
@@ -114,13 +114,14 @@
             android:layout_gravity="end"
             android:background="@color/White"
             android:fontFamily="Roboto"
-            android:onClick="savePassword"
+            android:onClick="saveShakeSetting"
             android:padding="10dp"
             android:text="Сохранить"
             android:textAlignment="center"
             android:textColor="#673AB7"
             android:textSize="14sp"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            />
 
     </LinearLayout>
 </RelativeLayout>

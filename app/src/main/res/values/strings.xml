@@ -16,6 +16,8 @@
     <string name="Save1">Сохранить</string>
     <string name="Save">Сохранить</string>
     <string name="Shake_unlock">Разблокировка\nтряской</string>
+    <string name="Slider_unlock">Разблокировка\nслайдом</string>
+    <string name="Slider_description">Самый простой способ\n разблокировать телефон, если это\nсрочно надо. Этот способ включен\nпо умолчанию, если не выбран \nлюбой другой способ.</string>
     <string name="Shake_s">Тряси телефон до тех пор, пока он\nне разблокируется. Ниже можешь
         \nвыбрать сложность (в минутах,\nот-до):</string>
     <string name="MinValueShake">0</string>

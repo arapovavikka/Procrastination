@@ -90,24 +90,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //navigateOnOverlay();
                 break;
             }
-            case R.id.like1: {
+            case R.id.sliderButton: {
                 //some activity
-                Intent navigationIntent = new Intent(this, SettingsPasswordActivity.class);
+                Intent navigationIntent = new Intent(this, SettingsSliderActivity.class);
                 startActivity(navigationIntent);
 
                 Log.i(TAG, "click on like1");
                 break;
             }
-            case R.id.like2: {
-                //some activity
-                //for test
-                Intent navigationIntent = new Intent(this, UnlockPasswordActivity.class);
+            case R.id.shakeButton: {
+                Intent navigationIntent = new Intent(this, SettingsShakeActivity.class);
+                navigationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(navigationIntent);
-
-                Log.i(TAG, "click on like2");
                 break;
             }
-            case R.id.formula: {
+            case R.id.formulaButton: {
                 //some activity
                 Log.i(TAG, "click on formula");
 
@@ -118,6 +115,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
                 Toast.makeText(getApplicationContext(), "Установлен таймер на 1 минуту!", Toast.LENGTH_LONG).show();
                 ExitActivity.exitApplication(getApplicationContext());
+                break;
+            }
+            case R.id.passwordButton: {
+                Intent navigationIntent = new Intent(this, SettingsPasswordActivity.class);
+                navigationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(navigationIntent);
                 break;
             }
             case R.id.relaxTextView: {
@@ -156,10 +159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         turnOnAndOfServiceSwitch = findViewById(R.id.turnOnAndOfServiceSwitch);
 
         buttonStart = findViewById(R.id.buttonStart);
-        like1 = findViewById(R.id.like1);
-        formula = findViewById(R.id.formula);
-        like2 = findViewById(R.id.like2);
-        like3 = findViewById(R.id.like3);
+        like1 = findViewById(R.id.sliderButton);
+        formula = findViewById(R.id.formulaButton);
+        like2 = findViewById(R.id.passwordButton);
+        like3 = findViewById(R.id.shakeButton);
 
 
     }

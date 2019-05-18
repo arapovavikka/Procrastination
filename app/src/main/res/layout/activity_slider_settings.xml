@@ -31,19 +31,19 @@
                 android:layout_toLeftOf="@+id/switchShakeSett"
                 android:fontFamily="Roboto"
                 android:padding="10dp"
-                android:text="@string/Shake_unlock"
+                android:text="@string/Slider_unlock"
                 android:textColor="@color/Black"
                 android:textSize="20sp"
                 android:textStyle="normal" />
 
             <Switch
-                android:id="@+id/switchShakeSett"
+                android:id="@+id/switchSliderSett"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:checked="true"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="6dp"
                 android:theme="@style/My_Switch"
                 tools:ignore="RtlSymmetry" />
 
@@ -71,7 +71,7 @@
             android:layout_gravity="end"
             android:background="@color/White"
             android:fontFamily="Roboto"
-            android:onClick="savePassword"
+            android:onClick="saveSlider"
             android:padding="10dp"
             android:text="Сохранить"
             android:textAlignment="center"

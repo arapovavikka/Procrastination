@@ -1,5 +1,6 @@
 package com.dreamteam4140.stop;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.widget.TextView;
 
 import com.dreamteam4140.stop.model.AppPreferences;
 
-public class SetTimerActivity extends AppCompatActivity {
+public class SetTimerActivity extends Activity {
 
     private int MAX_HOUR = 23;
     private int MAX_MINUTES = 59;
@@ -155,6 +156,6 @@ public class SetTimerActivity extends AppCompatActivity {
             AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, Integer.parseInt(_hourTextView.getText().toString()));
             AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_WORK_TIME_MIN, Integer.parseInt(_minutesTextView.getText().toString()));
         }
-        finishActivity(0);
+        finish();
     }
 }

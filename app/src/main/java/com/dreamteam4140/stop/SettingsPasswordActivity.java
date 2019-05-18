@@ -1,5 +1,6 @@
 package com.dreamteam4140.stop;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 
 import com.dreamteam4140.stop.model.AppPreferences;
 
-public class SettingsPasswordActivity extends AppCompatActivity {
+public class SettingsPasswordActivity extends Activity {
 
     EditText passwordEditText;
     Switch passwordSettingsSwitch;

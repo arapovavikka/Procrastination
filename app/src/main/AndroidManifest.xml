@@ -10,10 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SettingsSliderActivity"></activity>
+        <activity android:name=".SettingsShakeActivity" />
         <activity
             android:name=".activity.ExitActivity"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:autoRemoveFromRecents="true"/>
+            android:autoRemoveFromRecents="true"
+            android:theme="@android:style/Theme.NoDisplay" />
         <activity android:name=".UnlockPasswordActivity" />
         <activity android:name=".SettingsPasswordActivity" />
         <activity android:name=".OverlayActivity" />
