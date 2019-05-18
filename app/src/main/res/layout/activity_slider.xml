@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
     android:layout_height="458dp"
@@ -45,39 +46,53 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2"
-                android:background="#EEEEEE"
                 android:src="@mipmap/ic_arrow" />
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="1"
-        android:layout_weight="1">
-
         <TextView
             android:id="@+id/shakeSettBodyText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="Roboto"
             android:paddingLeft="11dp"
             android:paddingTop="5dp"
             android:text="@string/Slider_s2"
             android:textColor="@color/Black2"
             android:textSize="14sp"
-            android:textStyle="normal|normal"
-            android:layout_weight="2.7"/>
+            android:textStyle="normal|normal" />
 
-        <SeekBar
-            android:id="@+id/seekBar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="11dp"
-            android:progress="10"
-            tools:progressDrawable="@drawable/seekbar"
-            tools:thumb="@mipmap/ic_ellipse" />
-    </LinearLayout>
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.appyvet.materialrangebar.RangeBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rangebar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                app:mrb_barWeight="20dp"
+                app:mrb_connectingLineColor="@color/Gray_switch"
+                app:mrb_connectingLineWeight="20dp"
+                app:mrb_pinRadius="0dp"
+                app:mrb_rangeBar="false"
+                app:mrb_rangeBarColor="#D7B7FD"
+                app:mrb_rangeBarPaddingBottom="35dp"
+                app:mrb_rangeBar_rounded="true"
+                app:mrb_rightSelectorColor="@color/rangeSeekBarCircleColor"
+                app:mrb_selectorBoundarySize="0dp"
+                app:mrb_selectorSize="20dp"
+                app:mrb_temporaryPins="true"
+                app:mrb_tickDefaultColor="@android:color/transparent"
+                app:mrb_tickEnd="5"
+                app:mrb_tickInterval="1"
+                app:mrb_tickStart="5" />
+
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
