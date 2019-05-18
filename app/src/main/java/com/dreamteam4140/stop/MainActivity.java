@@ -49,7 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AppPreferences appPreferences;
     private int seconds;
 
-
+    private enum TimerSTATUS {
+        STARTING,
+        PAUSE,
+        CANCLE
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void save() {
         appPreferences.put(AppPreferences.Key.TIMER_FINISHED_TIME, timer.getFinishedTimer());
+        appPreferences.put(AppPreferences.Key.TIMER_TIME, seconds);
         checkConditionOfTimer();
 
     }
@@ -164,14 +169,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void load() {
         timerStarted=appPreferences.getBool(AppPreferences.Key.IS_PLAY);
-        Log.i(TAG, "LOAD");
+        /*Log.i(TAG, "LOAD");
         Log.i(TAG, "turnOnAndOfServiceSwitch.isChecked()  "+appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
         Log.i(TAG, "timerStarted  "+appPreferences.getBool(AppPreferences.Key.IS_PLAY));
-        Log.i(TAG, "-------------");
-        setServiceStatus(appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
-        setTimerStatus(timerStarted);
-        timeForUsingPhoneTextView.setText(timer.getTimerStringBySeconds(seconds));
-        appPreferences.put(AppPreferences.Key.IS_CHANGE_TIME, false);
+        Log.i(TAG, "-------------");*/
 
         timeForUsingPhoneTextView.setText(String.format(res.getString(R.string.timer),
                 appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR,0),
@@ -179,6 +180,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         relaxTextView.setText(String.format(res.getString(R.string.timer),
                 appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR,0),
                 appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN,0)));
+
+        if(appPreferences.getBool(AppPreferences.Key.IS_CHANGE_TIME)){
+            int hours = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR,0);
+            int minutes = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0);
+            setServiceStatus(false);
+            timerTextView.setText(String.format("%02d", hours) + ":"
+                    + String.format("%02d", minutes));
+            seconds=Timer.getSecondsByTimerTextView(timerTextView.getText().toString());
+        }
+        else {
+            seconds=appPreferences.getInt(AppPreferences.Key.TIMER_TIME,0);
+            timerTextView.setText(Timer.getByTimerTextViewSeconds(seconds));
+            setServiceStatus(appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
+            setTimerStatus(timerStarted);
+        }
+        appPreferences.put(AppPreferences.Key.IS_CHANGE_TIME, false);
+
+
 
     }
 
@@ -237,16 +256,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void setTimerStatus(boolean startTimer) {
+
         Log.i(TAG, "click on buttonStart");
 
         Log.i(TAG, "Switch is checked" + turnOnAndOfServiceSwitch.isChecked() + "\n");
         Log.i(TAG, "--------------");
-        if (startTimer) {
-            buttonStart.setImageResource(R.mipmap.ic_pause_timer);
-        } else {
-            buttonStart.setImageResource(R.mipmap.ic_start_timer);
+        if(turnOnAndOfServiceSwitch.isChecked()) {
+            if (startTimer) {
+                setTimerStatus(TimerSTATUS.STARTING);
+                buttonStart.setImageResource(R.mipmap.ic_pause_timer);
+            } else {
+                setTimerStatus(TimerSTATUS.PAUSE);
+                buttonStart.setImageResource(R.mipmap.ic_start_timer);
+            }
+            timerStarted = startTimer;
         }
-        timerStarted = startTimer;
 
         Log.i(TAG, "timerStarted  "+timerStarted);
                 /*if (timerStarted) {
@@ -278,11 +302,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             turnOnAndOfServiceText.setText(res.getText(R.string.turnOnService));
         } else {
             turnOnAndOfServiceText.setText(res.getText(R.string.turnOfService));
+            setTimerStatus(TimerSTATUS.CANCLE);
+            timerStarted=false;
+            seconds=0;
+            buttonStart.setImageResource(R.mipmap.ic_start_timer);
         }
     }
+
+
+private void setTimerStatus (TimerSTATUS status){
+        switch (status){
+            case STARTING:{
+                Log.d(TAG, "Seconds"+seconds );
+                timer.start(timerTextView, seconds, buttonStart);
+                Log.d(TAG, "Turn On Timer " );
+                break;
+            }
+            case PAUSE:{
+                try {
+                    timer.pause(timerTextView);
+                } catch (InterruptedException ignored) {
+
+                }
+                Log.d(TAG, "Pause Timer " );
+                break;
+            }
+            case CANCLE:{
+                Log.d(TAG, "Cancle Timer " );
+                try {
+                    timer.cancle(timerTextView);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+
+        }
+
+
 }
-
-
+}
 
 /*  private void controlService(boolean turnOnService, boolean timerIsStarted) {
         buttonStart.setImageResource(R.mipmap.ic_pause_timer);

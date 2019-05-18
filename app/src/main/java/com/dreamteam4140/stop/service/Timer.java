@@ -34,6 +34,7 @@ public class Timer {
             public void onTick(long millisUntilFinished) {
                 timeInSeconds = (int) millisUntilFinished / 1000;
                 textView.setText(getHoursAndMinutes(timeInSeconds));
+                Log.i(TAG, "Seconds:"+timeInSeconds);
             }
 
             @Override
@@ -68,7 +69,7 @@ public class Timer {
         }
     }
 
-    public void cancel(final TextView textView) throws InterruptedException {
+    public void cancle(final TextView textView) throws InterruptedException {
         if (countDownTimer != null) {
             timeInSeconds = 0;
             textView.setText("00:00");
@@ -93,6 +94,25 @@ public class Timer {
         int hoursIndex = textViewString.indexOf("Ч");
         return (Integer.parseInt(textViewString.substring(0, hoursIndex)) * 3600
                 + Integer.parseInt(textViewString.substring(hoursIndex + 1, hoursIndex + 3)) * 60);
+    }
+    public static int getSecondsByHourAndMinutes(int hour,int minutes){
+        return (hour*3600+minutes*60);
+
+    }
+    public static int  getSecondsByTimerTextView(String timerTextViewText){
+        Log.i(TAG, "timerTextViewText"+timerTextViewText);
+        String [ ] hourAndMinutesArray=timerTextViewText.split(":");
+
+        return getSecondsByHourAndMinutes(Integer.parseInt(hourAndMinutesArray[0]),
+                +Integer.parseInt(hourAndMinutesArray[1]));
+    }
+    public static String  getByTimerTextViewSeconds(int seconds){
+        Log.i(TAG, "seconds"+seconds);
+        int hours =seconds/3600;
+        int minutes =(seconds-hours*3600)/60;
+
+        return String.format("%02d", hours) + ":"
+                + String.format("%02d", minutes);
     }
 
     public String getFinishedTimer() {
