@@ -15,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
-        android:weightSum="3">
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_gravity="end"
-                android:layout_toLeftOf="@+id/switchShakeSett"
+                android:layout_toLeftOf="@+id/switchSliderSett"
                 android:fontFamily="Roboto"
                 android:padding="10dp"
                 android:text="@string/Slider_unlock"
@@ -38,12 +38,12 @@
 
             <Switch
                 android:id="@+id/switchSliderSett"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:checked="true"
                 android:gravity="center"
-                android:padding="6dp"
+                android:padding="3dp"
                 android:theme="@style/My_Switch"
                 tools:ignore="RtlSymmetry" />
 
@@ -61,8 +61,7 @@
             android:textColor="@color/Black2"
             android:textSize="14sp"
             android:textStyle="normal|normal"
-            android:layout_weight="3"/>
-
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/safeSliderSett"

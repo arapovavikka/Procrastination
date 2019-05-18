@@ -14,8 +14,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:weightSum="4">
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,13 +30,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_weight="2"
                 android:fontFamily="Roboto"
                 android:padding="10dp"
                 android:text="@string/Shake_unlock"
                 android:textColor="@color/Black"
                 android:textSize="20sp"
-                android:textStyle="normal"
-                android:layout_weight="2"/>
+                android:textStyle="normal" />
 
 
             <ImageButton
@@ -42,33 +44,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_arrow"
+                android:layout_weight="2"
                 android:background="#EEEEEE"
-                android:layout_weight="2"/>
+                android:src="@mipmap/ic_arrow" />
 
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_weight="1">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/shakeSettBodyText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="4"
-            android:layout_weight="3">
+            android:fontFamily="Roboto"
+            android:paddingLeft="11dp"
+            android:paddingTop="5dp"
+            android:text="@string/Slider_s2"
+            android:textColor="@color/Black2"
+            android:textSize="14sp"
+            android:textStyle="normal|normal"
+            android:layout_weight="2.7"/>
 
-            <TextView
-                android:id="@+id/shakeSettBodyText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="Roboto"
-                android:paddingLeft="11dp"
-                android:paddingTop="5dp"
-                android:text="@string/Slider_s2"
-                android:textColor="@color/Black2"
-                android:textSize="14sp"
-                android:textStyle="normal|normal" />
-
-          //here should be a slider
-        </LinearLayout>
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="11dp"
+            android:progress="10"
+            tools:progressDrawable="@drawable/seekbar"
+            tools:thumb="@mipmap/ic_ellipse" />
+    </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
