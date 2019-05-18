@@ -69,11 +69,30 @@
             android:orientation="vertical">
 
 
-            <FrameLayout
-                android:id="@+id/seekbar_placeholder"
+            <com.appyvet.materialrangebar.RangeBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rangebar1"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:mrb_barWeight="2dp"
+                app:mrb_connectingLineColors="@array/connecting_colors"
+                app:mrb_connectingLineWeight="4dp"
+                app:mrb_leftSelectorColor="@color/rangeSeekBarCircleColor"
+                app:mrb_pinColor="@android:color/transparent"
+                app:mrb_pinTextColor="@color/colorInclude"
+                app:mrb_rangeBar="true"
+                app:mrb_rangeBarPaddingBottom="30dp"
+                app:mrb_rightSelectorColor="@color/rangeSeekBarCircleColor"
+                app:mrb_selectorBoundaryColor="@android:color/transparent"
+                app:mrb_selectorBoundarySize="0dp"
+                app:mrb_selectorSize="6dp"
+                app:mrb_temporaryPins="true"
+                app:mrb_tickEnd="5"
+                app:mrb_tickDefaultColor="@android:color/transparent"
+                app:mrb_tickInterval="1"
+                app:mrb_tickLabelSize="4sp"
+                app:mrb_tickStart="0" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -11,6 +11,10 @@
     <color name="colorBackground">#EEEEEE</color>
     <color name="overlayTextColor">#BB86FC</color>
 
+    <color name="rangeSeekBarColor">#D7B7FD</color>
+    <color name="rangeSeekBarCircleColor">#7F22FD</color>
+
+
     <color name="Gray">#9e9e9e</color>
     <color name="Black">#000000</color>
     <color name="Black2">#212121</color>
