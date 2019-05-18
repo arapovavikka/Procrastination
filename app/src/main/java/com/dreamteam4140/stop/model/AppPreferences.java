@@ -11,14 +11,18 @@ public class AppPreferences {
 
     private static final String APP_PREFERENCES = "user_pref";
 
-
+    //SLIDER should be enabled by default!
     public enum Key {
         SETTINGS_PASSWORD_STR,
         PASSWORD_ENABLED,
         TIMER_TIME,
 
         SLIDER_ENABLED,
+
+
         SHAKER_ENABLED,
+        SETTINGS_SHAKER_MIN_TIME,
+        SETTINGS_SHAKER_MAX_TIME,
 
         SETTINGS_RELAX_TIME_HOUR,
         SETTINGS_RELAX_TIME_MIN,
