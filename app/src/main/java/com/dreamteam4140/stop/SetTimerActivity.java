@@ -162,13 +162,13 @@ public class SetTimerActivity extends Activity {
     private void setStartTime(){
 
         if (_timerRelax) {
-            _hourTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0)));
-            _minutesTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0)));
+            _hourTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0)));
+            _minutesTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0)));
         }
 
         else{
-            _hourTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, 0)));
-            _minutesTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0)));
+            _hourTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, 0)));
+            _minutesTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0)));
         }
     }
 }

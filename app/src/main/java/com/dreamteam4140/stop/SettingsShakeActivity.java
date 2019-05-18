@@ -88,5 +88,6 @@ public class SettingsShakeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         saveSettings();
+        super.onBackPressed();
     }
 }

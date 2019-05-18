@@ -25,7 +25,7 @@ public class OverlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overlay);
-        timer = new Timer();
+        timer = new Timer(getResources());
         timerText = (TextView)findViewById(R.id.timerText);
         timer.start(timerText, 30);
 
