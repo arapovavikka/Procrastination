@@ -26,7 +26,11 @@ public class AppPreferences {
         SETTINGS_WORK_TIME_HOUR,
         SETTINGS_WORK_TIME_MIN,
 
-        NAVIGATE_TO_RELAX_TIMER
+        NAVIGATE_TO_RELAX_TIMER,
+        TIMER_FINISHED_TIME,
+        IS_CHANGE_TIME,
+        IS_PLAY,
+        TURN_ON_OF_SERVICE
     }
 
     private AppPreferences(Context context) {

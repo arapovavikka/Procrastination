@@ -1,6 +1,7 @@
 package com.dreamteam4140.stop;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,12 +38,8 @@ public class SetTimerActivity extends Activity {
 
         _hourTextView = findViewById(R.id.hourTextView);
         _minutesTextView = findViewById(R.id.minutesTextView);
+      setStartTime();
     }
-
-    /*public void closeLayout(View view)
-    {
-        finish();
-    }*/
 
     public void plusHourClicked(View view)
     {
@@ -146,6 +143,7 @@ public class SetTimerActivity extends Activity {
 
     public void saveTimer(View view)
     {
+
         if (_timerRelax)
         {
             AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, Integer.parseInt(_hourTextView.getText().toString()));
@@ -156,6 +154,21 @@ public class SetTimerActivity extends Activity {
             AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, Integer.parseInt(_hourTextView.getText().toString()));
             AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.SETTINGS_WORK_TIME_MIN, Integer.parseInt(_minutesTextView.getText().toString()));
         }
-        finish();
+
+        AppPreferences.GetInstance(getApplicationContext()).put(AppPreferences.Key.IS_CHANGE_TIME, true);
+        Intent navigationIntent = new Intent(this, MainActivity.class);
+        startActivity(navigationIntent);
+    }
+    private void setStartTime(){
+
+        if (_timerRelax) {
+            _hourTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0)));
+            _minutesTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0)));
+        }
+
+        else{
+            _hourTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, 0)));
+            _minutesTextView.setText(String.valueOf(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0)));
+        }
     }
 }

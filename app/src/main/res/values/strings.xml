@@ -2,7 +2,7 @@
     <string name="app_name">Hands off</string>
     <string name="timer_name">Время таймера</string>
     <string name="relax_time">Время отдыха</string>
-    <string name="time_text">00:23</string>
+    <string name="time_text">00:00</string>
     <string name="turnOnService">Сервис включен</string>
     <string name="turnOfService">Сервис выключен</string>
     <string name="relax_text">ОТДОХНИ</string>
@@ -26,4 +26,5 @@
     <string name="Slide_s">Самый простой способ\nразблокировать телефон, если это\nсрочно надо.
         Этот способ включен\nпо умолчанию, если не выбран\nлюбой другой способ.</string>
     <string name="Slider_s2">Проведите для разблокировки</string>
+    <string name="timer">%1$d Ч %2$d мин</string>
 </resources>
