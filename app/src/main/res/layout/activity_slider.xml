@@ -34,7 +34,7 @@
                 android:layout_weight="2"
                 android:fontFamily="Roboto"
                 android:padding="10dp"
-                android:text="@string/Shake_unlock"
+                android:text="@string/Slider_unlock"
                 android:textColor="@color/Black"
                 android:textSize="20sp"
                 android:textStyle="normal" />
@@ -46,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2"
-                android:src="@mipmap/ic_arrow" />
+                android:src="@mipmap/ic_arrow"
+                android:background="#FFFFFF"/>
 
         </LinearLayout>
 

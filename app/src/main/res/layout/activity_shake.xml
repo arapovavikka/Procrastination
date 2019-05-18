@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_arrow"
-                android:background="#EEEEEE"
+                android:background="#FFFFFF"
                 android:layout_weight="2" />
 
         </LinearLayout>
