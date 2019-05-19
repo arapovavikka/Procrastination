@@ -202,7 +202,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 timerTextView.setText(timer.getHoursAndMinutes(seconds));
         }
             setServiceStatus(appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
-            setTimerStatus(timerStarted);
+            if(seconds!=0) {
+                setTimerStatus(timerStarted);
+            }else {setTimerStatus(!timerStarted);}
         }
         appPreferences.put(AppPreferences.Key.IS_CHANGE_TIME, false);
 
