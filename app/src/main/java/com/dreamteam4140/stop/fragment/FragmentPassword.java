@@ -80,10 +80,12 @@ public class FragmentPassword extends Fragment implements View.OnClickListener {
                 } else {
                     _clearButton.setVisibility(View.GONE);
                 }
-                _passwordEditText.setSelection(_passwordEditText.getText().length());
-                if (_passwordEditText.equals(_passwordSetting)) {
+                String editText = String.valueOf(_passwordEditText.getText());
+                if (String.valueOf(_passwordEditText.getText()).equals(_passwordSetting)) {
+                    //вот сюда перед выходом можно добавить задание таймера
                     ExitActivity.exitApplication(getContext());
                 }
+                _passwordEditText.setSelection(_passwordEditText.getText().length());
             }
 
             @Override

@@ -1,5 +1,8 @@
 package com.dreamteam4140.stop.fragment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.appyvet.materialrangebar.RangeBar;
+import com.dreamteam4140.stop.MainActivity;
 import com.dreamteam4140.stop.R;
+import com.dreamteam4140.stop.TimerReceiver;
+import com.dreamteam4140.stop.TortureActivity;
 import com.dreamteam4140.stop.activity.ExitActivity;
+
+import java.util.Calendar;
 
 public class FragmentSlider extends Fragment {
 
