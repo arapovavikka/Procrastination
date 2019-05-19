@@ -309,10 +309,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setTimerStatus(TimerSTATUS status) {
         switch (status) {
             case STARTING: {
-                Log.d(TAG, "seconds Before overlay: " + seconds);
-                timer.start(timerTextView, seconds, buttonStart);
+                Log.d(TAG, "seconds Before overlay: " + timer.getSecondsByTimerTextView(timerTextView.getText().toString()));
                 setOverlayTimer(false,
-                        seconds, true);
+                        timer.getSecondsByTimerTextView(timerTextView.getText().toString()), true);
+                timer.start(timerTextView, seconds, buttonStart);
                 Log.d(TAG, "Turn On Timer ");
 
                 break;
