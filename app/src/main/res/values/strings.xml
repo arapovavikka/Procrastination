@@ -7,13 +7,11 @@
     <string name="turnOfService">Сервис выключен</string>
     <string name="relax_text">ОТДОХНИ</string>
 
-    <string name="Password_s">Установите пароль, вы сможете его использовать для срочной разблокировки телефона.
-        Не менее 10 цифр.</string>
-    <string name="Password_unl">Ведите пароль, чтобы
-       \n разблокировать телефон</string>
-    <string name="Password_unlock">Разблокировка паролем</string>
-    <string name="Password_enter">Введите пароль</string>
-    <string name="Save1">Сохранить</string>
+    <string name="Password_s">Установите пароль, вы сможете\nего использовать для срочной\nразблокировки телефона.
+        \nНе менее 10 цифр.</string>
+    <string name="Password_unl">Введите пароль, чтобы
+       \nразблокировать телефон</string>
+
     <string name="Save">Сохранить</string>
     <string name="Shake_unlock">Разблокировка\nтряской</string>
     <string name="Slider_unlock">Разблокировка\nслайдом</string>
@@ -27,4 +25,24 @@
         Этот способ включен\nпо умолчанию, если не выбран\nлюбой другой способ.</string>
     <string name="Slider_s2">Проведите для разблокировки</string>
     <string name="timer">%1$d Ч %2$d мин</string>
+
+    <string name="Password_unlock">Разблокировка
+        \nпаролем</string>
+    <string name="Password_enter">Введите пароль</string>
+    <string name="Save1">Сохранить</string>
+
+    <string name="Math_unlock">Разблокировка математикой</string>
+    <string name="Unlock_text1">Реши простое уравнение:
+    \n\n 2x+(3.5(x^4))/(25*(x^2))-3(x^2)=45(x^3)</string>
+    <string name="Unlock_text2">Значение вводить через запятую,
+        \nразделитель разрядов-точка,
+        \nокруглять до сотых.</string>
+    <string name="Unlock_text3">Реши простое или не простое математические уравнения. Ниже можно выбрать сложность:</string>
+    <string name="CheckBox_simple">Простое</string>
+    <string name="CheckBox_tough">Сложное</string>
+    <string name="CheckBox_medium">Среднее</string>
+    <string name="Unlock_text4">И тип:</string>
+    <string name="CheckBox_linear">Линейное</string>
+    <string name="CheckBox_quadrate">Квадратное</string>
+    <string name="CheckBox_cubical">Кубическое</string>
 </resources>

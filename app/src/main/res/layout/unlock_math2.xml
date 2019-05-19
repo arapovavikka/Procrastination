@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:layout_width="320dp"
+    android:layout_height="458dp"
+    android:background="@drawable/borderframe"
+    android:paddingRight="1dp"
+    tools:ignore="RtlSymmetry">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="252dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="end"
+                android:layout_toLeftOf="@+id/switch1"
+                android:fontFamily="Roboto"
+                android:padding="10dp"
+                android:text="@string/Math_unlock"
+                android:textColor="@color/Black"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                tools:targetApi="jelly_bean" />
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:theme="@style/My_Switch"
+                tools:ignore="RtlSymmetry" />
+
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="end"
+            android:fontFamily="Roboto"
+            android:paddingLeft="11dp"
+            android:paddingTop="5dp"
+            android:text="@string/Unlock_text3"
+            android:textColor="@color/Black2"
+            android:textSize="14dp"
+            android:textStyle="normal|normal"
+            tools:ignore="RtlSymmetry"
+            tools:targetApi="jelly_bean" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="109dp"
+                android:orientation="vertical"
+                android:paddingLeft="8dp">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/Switch"
+                    android:text="@string/CheckBox_simple"
+                    android:theme="@style/My_Switch" />
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/Switch"
+                    android:text="@string/CheckBox_medium"
+                    android:theme="@style/My_Switch" />
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/Switch"
+                    android:text="@string/CheckBox_tough"
+                    android:theme="@style/My_Switch" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_weight="0.50"
+            android:orientation="vertical"
+            android:paddingLeft="8dp">
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="end"
+                android:fontFamily="Roboto"
+                android:paddingLeft="11dp"
+                android:paddingTop="5dp"
+                android:text="@string/Unlock_text4"
+                android:textColor="@color/Black2"
+                android:textSize="14dp"
+                android:textStyle="normal|normal"
+                tools:ignore="RtlSymmetry"
+                tools:targetApi="jelly_bean"
+                android:layout_weight="1.41" />
+
+            <CheckBox
+                android:id="@+id/checkBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/Switch"
+                android:text="@string/CheckBox_linear"
+                android:theme="@style/My_Switch" />
+
+            <CheckBox
+                android:id="@+id/checkBox5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/Switch"
+                android:text="@string/CheckBox_quadrate"
+                android:theme="@style/My_Switch" />
+
+            <CheckBox
+                android:id="@+id/checkBox6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/Switch"
+                android:text="@string/CheckBox_cubical"
+                android:theme="@style/My_Switch" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button4"
+
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:textSize="14dp"
+            android:fontFamily="Roboto"
+            android:textStyle="normal"
+            android:padding="10dp"
+            android:background="@color/White"
+            android:textAlignment="center"
+            android:textColor="#673AB7"
+            android:text="Проверить"
+            tools:targetApi="jelly_bean" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

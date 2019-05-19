@@ -25,9 +25,11 @@ public class UnlockPasswordActivity extends AppCompatActivity implements View.On
 
     private HashMap<TextView,Integer> viewToInteger;
 
-    private Button button2;
+  //  private Button button2;
     private Button button3;
 
+    private TextView textView2;
+    private TextView textView3;
     private TextView textView4;
     private TextView textView5;
     private TextView textView6;
@@ -35,6 +37,7 @@ public class UnlockPasswordActivity extends AppCompatActivity implements View.On
     private TextView textView8;
     private TextView textView9;
     private TextView textView10;
+    private TextView textView11;
 
 
     @Override
@@ -73,36 +76,36 @@ public class UnlockPasswordActivity extends AppCompatActivity implements View.On
         ArrayList<Integer> randomArrayList = getRandomArrayList(0,9);
         _clearButton = findViewById(R.id.buttonClear);
 
-        button2 = findViewById(R.id.button2);
-        button2.setText(String.valueOf(randomArrayList.get(0)));
+        textView2 = findViewById(R.id.textView36);
+        textView2.setText(String.valueOf(randomArrayList.get(0)));
 
-        button3 = findViewById(R.id.button3);
-        button3.setText(String.valueOf(randomArrayList.get(1)));
+        textView3 = findViewById(R.id.textView37);
+        textView3.setText(String.valueOf(randomArrayList.get(1)));
 
-        textView4 = findViewById(R.id.textView4);
+        textView4 = findViewById(R.id.textView38);
         textView4.setText(String.valueOf(randomArrayList.get(2)));
 
-        textView5 = findViewById(R.id.textView5);
+        textView5 = findViewById(R.id.textView39);
         textView5.setText(String.valueOf(randomArrayList.get(3)));
 
-        textView6 = findViewById(R.id.textView6);
+        textView6 = findViewById(R.id.textView40);
         textView6.setText(String.valueOf(randomArrayList.get(4)));
 
-        textView7 = findViewById(R.id.textView7);
+        textView7 = findViewById(R.id.textView41);
         textView7.setText(String.valueOf(randomArrayList.get(5)));
 
-        textView8 = findViewById(R.id.textView8);
+        textView8 = findViewById(R.id.textView42);
         textView8.setText(String.valueOf(randomArrayList.get(6)));
 
-        textView9 = findViewById(R.id.textView9);
+        textView9 = findViewById(R.id.textView43);
         textView9.setText(String.valueOf(randomArrayList.get(7)));
 
-        textView10 = findViewById(R.id.textView10);
+        textView10 = findViewById(R.id.textView44);
         textView10.setText(String.valueOf(randomArrayList.get(8)));
 
-        _upperLeftButton = findViewById(R.id.upperLeftButton);
-        _upperLeftButton.setText(String.valueOf(randomArrayList.get(9)));
-
+        textView11 = findViewById(R.id.textView45);
+        textView11.setText(String.valueOf(randomArrayList.get(9)));
+        button3 = findViewById(R.id.button3);
         _passwordEditText = findViewById(R.id.passwordEditText);
 
     }
@@ -120,7 +123,7 @@ public class UnlockPasswordActivity extends AppCompatActivity implements View.On
     }
     private void setOnClickListeners() {
         _upperLeftButton.setOnClickListener(this);
-        button2.setOnClickListener(this);
+        //button2.setOnClickListener(this);
 
         button3.setOnClickListener(this);
         textView4.setOnClickListener(this);

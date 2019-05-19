@@ -12,9 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:weightSum="1">
 
@@ -24,63 +23,84 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/textView35"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_gravity="end"
                 android:layout_toLeftOf="@+id/switch1"
                 android:fontFamily="Roboto"
                 android:padding="10dp"
-                android:text="@string/Password_unlock"
+                android:text="@string/Math_unlock"
                 android:textColor="@color/Black"
-                android:textSize="20sp"
-                android:textStyle="normal" />
+                android:textSize="20dp"
+                android:textStyle="normal"
+                tools:targetApi="jelly_bean" />
 
-            <Switch
-                android:id="@+id/switchPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/arrowShake"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:checked="true"
-                android:gravity="center"
-                android:padding="10dp"
-                android:theme="@style/My_Switch"
-                tools:ignore="RtlSymmetry" />
+                android:layout_weight="2"
+                android:background="#FFFFFF"
+                android:src="@mipmap/ic_arrow" />
+
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/textView36"
             android:layout_width="match_parent"
-            android:layout_height="86dp"
+            android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_gravity="end"
             android:fontFamily="Roboto"
             android:paddingLeft="11dp"
             android:paddingTop="5dp"
-            android:paddingRight="0dp"
-
-            android:text="@string/Password_s"
+            android:text="@string/Unlock_text1"
             android:textColor="@color/Black2"
-            android:textSize="14sp"
-            android:textStyle="normal|normal" />
+            android:textSize="14dp"
+            android:textStyle="normal|normal"
+            tools:ignore="RtlSymmetry"
+            tools:targetApi="jelly_bean" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.04"
-            android:orientation="horizontal"
+            android:layout_height="213dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
             android:paddingStart="11dp"
             android:paddingLeft="11dp"
             android:paddingEnd="11dp"
             android:paddingRight="11dp">
 
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="306dp"
+                android:layout_height="63dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="Roboto"
+                android:gravity="top"
+                android:paddingLeft="14dp"
+                android:paddingTop="5dp"
+                android:text="@string/Unlock_text2"
+                android:textColor="@color/Gray"
+                android:textSize="14sp"
+                android:textStyle="normal|normal"
+                tools:ignore="RtlSymmetry"
+                tools:targetApi="jelly_bean" />
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/text_view_password">
+                android:background="@drawable/text_view_password"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/passwordEditText"
@@ -112,6 +132,7 @@
 
         </LinearLayout>
 
+
         <Button
             android:id="@+id/button4"
 
@@ -120,13 +141,13 @@
             android:layout_gravity="end"
             android:background="@color/White"
             android:fontFamily="Roboto"
-            android:onClick="savePassword"
             android:padding="10dp"
-            android:text="Сохранить"
+            android:text="Проверить"
             android:textAlignment="center"
             android:textColor="#673AB7"
-            android:textSize="14sp"
-            android:textStyle="normal" />
+            android:textSize="14dp"
+            android:textStyle="normal"
+            tools:targetApi="jelly_bean" />
 
 
     </LinearLayout>
