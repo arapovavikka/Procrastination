@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.dreamteam4140.stop.R;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class Timer {
     private static final String TAG = "Timer";
@@ -88,26 +89,18 @@ public class Timer {
 
     }
 
-    public static int getSecondsByTimerString(String textViewString) {
-        //draft is: 00 Ч 00 мин
-        textViewString = textViewString.replaceAll("\\s+", "");
-        int hoursIndex = textViewString.indexOf("Ч");
-        return (Integer.parseInt(textViewString.substring(0, hoursIndex)) * 3600
-                + Integer.parseInt(textViewString.substring(hoursIndex + 1, hoursIndex + 3)) * 60);
-    }
-    public static int getSecondsByHourAndMinutes(int hour,int minutes){
+
+    public static  int getSecondsByHourAndMinutes(int hour,int minutes){
         return (hour*3600+minutes*60);
 
     }
-    public static int  getSecondsByTimerTextView(String timerTextViewText){
-        Log.i(TAG, "timerTextViewText"+timerTextViewText);
+    public  static int  getSecondsByTimerTextView(String timerTextViewText){
         String [ ] hourAndMinutesArray=timerTextViewText.split(":");
 
-        return getSecondsByHourAndMinutes(Integer.parseInt(hourAndMinutesArray[0]),
-                +Integer.parseInt(hourAndMinutesArray[1]));
+
+        return (getSecondsByHourAndMinutes(Integer.parseInt(hourAndMinutesArray[0]),Integer.parseInt(hourAndMinutesArray[1])));
     }
     public static String  getByTimerTextViewSeconds(int seconds){
-        Log.i(TAG, "seconds"+seconds);
         int hours =seconds/3600;
         int minutes =(seconds-hours*3600)/60;
 
@@ -115,52 +108,38 @@ public class Timer {
                 + String.format("%02d", minutes);
     }
 
-    public String getFinishedTimer() {
-        Calendar cal = Calendar.getInstance();
-        Log.i(TAG, "Need to change time");
-        int hours = timeInSeconds / 3600;
-        int minutes = (timeInSeconds - hours * 3600) / 60;
-        int second = timeInSeconds - hours * 3600 - minutes * 60;
-        cal.add(Calendar.HOUR, hours);
-        cal.add(Calendar.MINUTE, minutes);
-        cal.add(Calendar.SECOND, second);
-        return (cal.get(Calendar.HOUR) + ":" +
-                cal.get(Calendar.MINUTE) + ":" +
-                cal.get(Calendar.SECOND));
-    }
 
-    public static int getRemainingTime(String finishedTime) {
-        if(finishedTime.equals("")) return 0;
-        String[] finishedTimeArray = finishedTime.split(":");
-        int finishedSeconds;
-        int currentSecond;
-        Calendar cal = Calendar.getInstance();
-        if (Integer.parseInt(finishedTimeArray[0]) < cal.get(Calendar.HOUR)) {
-            finishedSeconds = (Integer.parseInt(finishedTimeArray[0])+24) * 3600 +
-                    Integer.parseInt(finishedTimeArray[1]) * 60+Integer.parseInt(finishedTimeArray[2]);
-        } else {
-            finishedSeconds = Integer.parseInt(finishedTimeArray[0]) * 3600 +
-                    Integer.parseInt(finishedTimeArray[1]) * 60+Integer.parseInt(finishedTimeArray[2]);
+    public static   int  getStringByCurrentTime(Long time,int seconds){
+        Calendar stoppedTime = Calendar.getInstance();
+        stoppedTime.setTimeInMillis(time);
+        stoppedTime.set(Calendar.SECOND,stoppedTime.get(Calendar.SECOND)+seconds);
+        Calendar currentTime = Calendar.getInstance();
+        if(currentTime.after(stoppedTime)){
+            return 0;
         }
-        System.out.println(finishedSeconds);
-        if(cal.get(Calendar.AM_PM)==Calendar.PM){
-            currentSecond = (cal.get(Calendar.HOUR)+12) * 3600 +
-                    cal.get(Calendar.MINUTE) * 60 + cal.get(Calendar.SECOND);
-        }
-        else {
-            currentSecond = (cal.get(Calendar.HOUR)) * 3600 +
-                    cal.get(Calendar.MINUTE) * 60 + cal.get(Calendar.SECOND);
-        }
+        return subtractTwoDate(stoppedTime,currentTime);
 
 
-        System.out.println((cal.getTimeInMillis())/3600);
-        System.out.println(currentSecond);
-        return (finishedSeconds-currentSecond);
+
     }
     public  String getTimerStringBySeconds(int seconds) {
         //draft is: 00 Ч 00 мин
         int hours=seconds/3600;
         int minutes=(seconds-hours*3600)/60;
         return String.format(res.getString(R.string.timer), hours,minutes);
+    }
+
+    public static int subtractTwoDate(Calendar minuend,Calendar difference){
+        int hours;
+        if(difference.get(Calendar.DAY_OF_MONTH)<minuend.get(Calendar.DAY_OF_MONTH)){
+            hours=minuend.get(Calendar.HOUR)+24-difference.get(Calendar.HOUR);
+            System.out.println("true");
+        }
+        else {
+            hours=minuend.get(Calendar.HOUR)-difference.get(Calendar.HOUR);
+        }
+        int minutes=minuend.get(Calendar.MINUTE)-difference.get(Calendar.MINUTE);
+        int seconds=minuend.get(Calendar.SECOND)-difference.get(Calendar.SECOND);
+        return (hours*3600+minutes*60+seconds);
     }
 }

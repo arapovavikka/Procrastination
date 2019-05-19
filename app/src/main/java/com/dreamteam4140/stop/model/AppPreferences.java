@@ -2,6 +2,7 @@ package com.dreamteam4140.stop.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class AppPreferences {
 
@@ -31,7 +32,7 @@ public class AppPreferences {
         SETTINGS_WORK_TIME_MIN,
 
         NAVIGATE_TO_RELAX_TIMER,
-        TIMER_FINISHED_TIME,
+        TIME_OF_STOPPED,
         IS_CHANGE_TIME,
         IS_PLAY,
         TURN_ON_OF_SERVICE
@@ -52,6 +53,11 @@ public class AppPreferences {
     public void put(Key key, String val) {
         doEdit();
         mEditor.putString(key.name(), val);
+        doCommit();
+    }
+    public void put(Key key, Long val) {
+        doEdit();
+        mEditor.putLong(key.name(), val);
         doCommit();
     }
 
@@ -88,6 +94,13 @@ public class AppPreferences {
     public boolean getBool(Key key, boolean defaultValue) {
         return mPrefs.getBoolean(key.name(), defaultValue);
     }
+
+    public Long getLong(Key key) {return mPrefs.getLong(key.name(), 0);}
+
+    public Long getLong(Key key, Long defaultValue) {
+        return mPrefs.getLong(key.name(), defaultValue);
+    }
+
 
     private void doEdit() {
         if (mEditor == null) {
