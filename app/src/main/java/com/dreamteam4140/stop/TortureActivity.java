@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import com.dreamteam4140.stop.fragment.FragmentPassword;
 import com.dreamteam4140.stop.fragment.FragmentShake;
 import com.dreamteam4140.stop.fragment.FragmentSlider;
+import com.dreamteam4140.stop.model.AppPreferences;
 
 public class TortureActivity extends AppCompatActivity {
 
@@ -20,6 +21,13 @@ public class TortureActivity extends AppCompatActivity {
     FragmentManager _fragmentManager;
 
     final static String TAG_PASSWORD = "FRAGMENT_PASSWORD";
+    final static String TAG_SLIDER = "FRAGMENT_SLIDER";
+    final static String TAG_SHAKER = "FRAGMENT_SHAKER";
+
+    //параметры доступности экрана
+    boolean _passwordEnabled;
+    boolean _sliderEnabled;
+    boolean _shakerEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +39,26 @@ public class TortureActivity extends AppCompatActivity {
         _shakeFragment = new FragmentShake();
         _sliderFragment = new FragmentSlider();
 
-        //при первом запуске
-        FragmentTransaction transaction = _fragmentManager.beginTransaction();
-        transaction.add(R.id.container, _sliderFragment, TAG_PASSWORD);
-        transaction.commit();
+
+        _passwordEnabled = AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.PASSWORD_ENABLED, false);
+        _shakerEnabled = AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.SHAKER_ENABLED, false);
+        _sliderEnabled = AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.SLIDER_ENABLED, false);
+         if (!_passwordEnabled && !_shakerEnabled && !_sliderEnabled)
+         {
+             //по умолчанию экран слайдера
+             FragmentTransaction transaction = _fragmentManager.beginTransaction();
+             transaction.add(R.id.container, _sliderFragment, TAG_SLIDER);
+             transaction.commit();
+         }
+         /*if(_passwordEnabled)
+         {
+             //по умолчанию экран слайдера
+             FragmentTransaction transaction = _fragmentManager.beginTransaction();
+             transaction.add(R.id.container, _passwordFragment, TAG_SLIDER);
+             transaction.commit();
+         }*/
+
+
     }
 
     @Override
