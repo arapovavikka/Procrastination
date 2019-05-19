@@ -309,9 +309,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setTimerStatus(TimerSTATUS status) {
         switch (status) {
             case STARTING: {
-                Log.d(TAG, "seconds Before overlay: " + timer.getSecondsByTimerTextView(timerTextView.getText().toString()));
+                Log.d(TAG, "seconds Before overlay: " + seconds);
                 setOverlayTimer(false,
-                        timer.getSecondsByTimerTextView(timerTextView.getText().toString()), true);
+                       seconds, true);
                 timer.start(timerTextView, seconds, buttonStart);
                 Log.d(TAG, "Turn On Timer ");
 
@@ -319,6 +319,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case PAUSE: {
                 try {
+                    seconds = timer.getSecondsByTimerTextViewWithSeconds(timerTextView.getText().toString());
                     timer.pause(timerTextView);
                     pendingIntent.cancel();
                 } catch (InterruptedException ignored) {
@@ -330,6 +331,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case CANCLE: {
                 Log.d(TAG, "Cancle Timer ");
                 try {
+                    seconds=0;
                     timer.cancle(timerTextView);
                     pendingIntent.cancel();
 
@@ -353,7 +355,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         if (isOutPutAllowed) {
 
-            Toast.makeText(getApplicationContext(), "Таймер прозвонит через " + timer.getHoursMinutesAndSeconds(seconds) + "(чч:мм:cc)!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Таймер прозвонит через " + timer.getHoursMinutesAndSeconds(timeForOverlayTimer) + "(чч:мм:cc)!", Toast.LENGTH_LONG).show();
 
         }
         if (isCloseApplication) {
