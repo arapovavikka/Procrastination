@@ -323,9 +323,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     pendingIntent.cancel();
                 } catch (InterruptedException ignored) {
 
-                    }
-                    Log.d(TAG, "Pause Timer ");
-                    break;
                 }
                 Log.d(TAG, "Pause Timer ");
                 break;
@@ -339,13 +336,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
+                break;
             }
-
-
+        }
     }
 
-    }
+
 
     private void setOverlayTimer(boolean isCloseApplication, int timeForOverlayTimer, boolean isOutPutAllowed) {
         Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
