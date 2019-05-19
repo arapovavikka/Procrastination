@@ -48,12 +48,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String finishedTime;
     private AppPreferences appPreferences;
     private int seconds;
+    private int secondsRelax;
 
     private enum TimerSTATUS {
         STARTING,
         PAUSE,
         CANCLE
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(navigationIntent);
 
 
-
                 break;
             }
             case R.id.relaxTextView: {
@@ -124,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initialize() {
         Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         seconds = 0;
         appPreferences = AppPreferences.GetInstance(getApplicationContext());
@@ -158,16 +158,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void save() {
-        Log.i(TAG, "Stopped Timer: "+Calendar.getInstance().getTimeInMillis());
+        Log.i(TAG, "Stopped Timer: " + Calendar.getInstance().getTimeInMillis());
 
         appPreferences.put(AppPreferences.Key.TIME_OF_STOPPED, Calendar.getInstance().getTimeInMillis());
-        if( timer.getTimeInSeconds()!=0) {
+        if (timer.getTimeInSeconds() != 0) {
             appPreferences.put(AppPreferences.Key.TIMER_TIME, timer.getTimeInSeconds());
-        }
-        else {
+        } else {
             appPreferences.put(AppPreferences.Key.TIMER_TIME, timer.getSecondsByTimerTextView(timerTextView.getText().toString()));
         }
-        Log.i(TAG, "seconds Saved "+   appPreferences.getInt(AppPreferences.Key.TIMER_TIME));
+        Log.i(TAG, "seconds Saved " + appPreferences.getInt(AppPreferences.Key.TIMER_TIME));
 
         checkConditionOfTimer();
 
@@ -175,39 +174,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void load() {
-        Log.i(TAG, "Loading Time: "+Calendar.getInstance().getTime());
-        timerStarted=appPreferences.getBool(AppPreferences.Key.IS_PLAY);
+        Log.i(TAG, "Loading Time: " + Calendar.getInstance().getTime());
+        timerStarted = appPreferences.getBool(AppPreferences.Key.IS_PLAY);
 
         timeForUsingPhoneTextView.setText(String.format(res.getString(R.string.timer),
-                appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR,0),
-                appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0)));
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, 0),
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN, 0)));
         relaxTextView.setText(String.format(res.getString(R.string.timer),
-                appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR,0),
-                appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN,0)));
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0),
+                appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0)));
 
-        if(appPreferences.getBool(AppPreferences.Key.IS_CHANGE_TIME)){
-            int hours = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR,0);
-            int minutes = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0);
+        if (appPreferences.getBool(AppPreferences.Key.IS_CHANGE_TIME)) {
+            int hours = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, 0);
+            int minutes = appPreferences.getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN, 0);
+            int hoursRelax = appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0);
+            int minutesRelax = appPreferences.getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0);
             setServiceStatus(false);
             timerTextView.setText(String.format("%02d", hours) + ":"
-                    + String.format("%02d", minutes));
-            seconds=timer.getSecondsByTimerTextView(timerTextView.getText().toString());
-        }
-        else {
+                    + String.format("%02d", minutes) + ":" + String.format("%02d", 0));
+            seconds = timer.getSecondsByTimerTextViewWithSeconds(timerTextView.getText().toString());
+
+            secondsRelax = timer.getSecondsByTimerTextViewWithSeconds(String.format("%02d", hoursRelax) + ":"
+                    + String.format("%02d", minutesRelax) + ":" + String.format("%02d", 0));
+        } else {
             if (timerStarted) {
                 seconds = Timer.getStringByCurrentTime(appPreferences.getLong(AppPreferences.Key.TIME_OF_STOPPED),
                         appPreferences.getInt(AppPreferences.Key.TIMER_TIME));
-            } else{
+            } else {
                 seconds = appPreferences.getInt(AppPreferences.Key.TIMER_TIME);
-                timerTextView.setText(timer.getHoursAndMinutes(seconds));
-        }
+                timerTextView.setText(timer.getHoursMinutesAndSeconds(seconds));
+            }
             setServiceStatus(appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
-            if(seconds!=0) {
+            if (seconds != 0) {
                 setTimerStatus(timerStarted);
-            }else {setTimerStatus(!timerStarted);}
+            } else {
+                setTimerStatus(!timerStarted);
+            }
         }
         appPreferences.put(AppPreferences.Key.IS_CHANGE_TIME, false);
-
 
 
     }
@@ -232,7 +236,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getTimerRelaxText() {
-
     }
 
     public void openSetTimer(View view) {
@@ -247,8 +250,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkConditionOfTimer() {
         Log.i(TAG, "SAVE");
-        Log.i(TAG, "turnOnAndOfServiceSwitch.isChecked()  "+turnOnAndOfServiceSwitch.isChecked());
-        Log.i(TAG, "timerStarted  "+timerStarted);
+        Log.i(TAG, "turnOnAndOfServiceSwitch.isChecked()  " + turnOnAndOfServiceSwitch.isChecked());
+        Log.i(TAG, "timerStarted  " + timerStarted);
         Log.i(TAG, "-------------");
         appPreferences.put(AppPreferences.Key.TURN_ON_OF_SERVICE, turnOnAndOfServiceSwitch.isChecked());
         if (timerStarted) {
@@ -272,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.i(TAG, "Switch is checked" + turnOnAndOfServiceSwitch.isChecked() + "\n");
         Log.i(TAG, "--------------");
-        if(turnOnAndOfServiceSwitch.isChecked()) {
+        if (turnOnAndOfServiceSwitch.isChecked()) {
             if (startTimer) {
                 setTimerStatus(TimerSTATUS.STARTING);
                 buttonStart.setImageResource(R.mipmap.ic_pause_timer);
@@ -283,53 +286,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             timerStarted = startTimer;
         }
 
-        Log.i(TAG, "timerStarted  "+timerStarted);
+        Log.i(TAG, "timerStarted  " + timerStarted);
 
     }
-    private void  setServiceStatus(boolean isChecked){
+
+    private void setServiceStatus(boolean isChecked) {
         Log.i(TAG, "Отслеживание переключения: " + (isChecked ? "on" : "off"));
-       turnOnAndOfServiceSwitch.setChecked(isChecked);
+        turnOnAndOfServiceSwitch.setChecked(isChecked);
         if (isChecked) {
             turnOnAndOfServiceText.setText(res.getText(R.string.turnOnService));
         } else {
             turnOnAndOfServiceText.setText(res.getText(R.string.turnOfService));
             setTimerStatus(TimerSTATUS.CANCLE);
-            timerStarted=false;
-            seconds=0;
+            timerStarted = false;
+            seconds = 0;
             buttonStart.setImageResource(R.mipmap.ic_start_timer);
         }
     }
 
 
-private void setTimerStatus (TimerSTATUS status){
-        switch (status){
-            case STARTING:{
-                Log.d(TAG, "seconds Before overlay: "+seconds );
-               timer.start(timerTextView, seconds, buttonStart);
+    private void setTimerStatus(TimerSTATUS status) {
+        switch (status) {
+            case STARTING: {
+                Log.d(TAG, "seconds Before overlay: " + seconds);
+                timer.start(timerTextView, seconds, buttonStart);
                 setOverlayTimer(false,
                         seconds, true);
-                Log.d(TAG, "Turn On Timer " );
+                Log.d(TAG, "Turn On Timer ");
 
                 break;
             }
-            case PAUSE:{
+            case PAUSE: {
                 try {
-                   timer.pause(timerTextView);
-                   pendingIntent.cancel();
+                    timer.pause(timerTextView);
+                    pendingIntent.cancel();
                 } catch (InterruptedException ignored) {
 
                 }
-                Log.d(TAG, "Pause Timer " );
+                Log.d(TAG, "Pause Timer ");
                 break;
             }
-            case CANCLE:{
-                Log.d(TAG, "Cancle Timer " );
+            case CANCLE: {
+                Log.d(TAG, "Cancle Timer ");
                 try {
                     timer.cancle(timerTextView);
                     pendingIntent.cancel();
 
                 } catch (InterruptedException e) {
-                   e.printStackTrace();
+                    e.printStackTrace();
                 }
                 break;
             }
@@ -337,25 +341,26 @@ private void setTimerStatus (TimerSTATUS status){
         }
 
 
-}
-
-private void setOverlayTimer (boolean isCloseApplication,int timeForOverlayTimer,boolean isOutPutAllowed){
-    Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
-    pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + timeForOverlayTimer);
-    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-    if(isOutPutAllowed) {
-
-            Toast.makeText(getApplicationContext(), "Таймер прозвонит через " + timer.getHoursMinutesAndSeconds(seconds) + "(чч::мм:cc)!", Toast.LENGTH_LONG).show();
-
     }
-    if(isCloseApplication) {
-        save();
-        ExitActivity.exitApplication(getApplicationContext());
+
+    private void setOverlayTimer(boolean isCloseApplication, int timeForOverlayTimer, boolean isOutPutAllowed) {
+        Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
+        myIntent.putExtra("secondsRelax", secondsRelax);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + timeForOverlayTimer);
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+        if (isOutPutAllowed) {
+
+            Toast.makeText(getApplicationContext(), "Таймер прозвонит через " + timer.getHoursMinutesAndSeconds(seconds) + "(чч:мм:cc)!", Toast.LENGTH_LONG).show();
+
+        }
+        if (isCloseApplication) {
+            save();
+            ExitActivity.exitApplication(getApplicationContext());
+        }
     }
-}
 
 }
 

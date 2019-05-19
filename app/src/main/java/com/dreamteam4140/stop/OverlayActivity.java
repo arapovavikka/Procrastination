@@ -25,9 +25,10 @@ public class OverlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overlay);
+        Intent intent = getIntent();
         timer = new Timer(getResources());
-        timerText = (TextView)findViewById(R.id.timerText);
-        timer.start(timerText, 30);
+        timerText = (TextView) findViewById(R.id.timerText);
+        timer.start(timerText, intent.getIntExtra("secondsRelax", 0));
 
         unlockPassword = AppPreferences.GetInstance(getApplicationContext()).getString(AppPreferences.Key.SETTINGS_PASSWORD_STR);
         //Toast.makeText(getApplicationContext(), "done! " + unlockPassword, Toast.LENGTH_LONG).show();
@@ -38,6 +39,7 @@ public class OverlayActivity extends AppCompatActivity {
         // Do nothing or catch the keys you want to block
         return false;
     }
+
     public void closeOverlay(View view) {
         Intent navigationIntent = new Intent(this, TortureActivity.class);
         startActivity(navigationIntent);

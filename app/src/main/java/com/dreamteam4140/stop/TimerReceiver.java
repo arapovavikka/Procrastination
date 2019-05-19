@@ -12,6 +12,7 @@ public class TimerReceiver extends BroadcastReceiver {
         Intent overlayIntent = new Intent();
         overlayIntent.setClassName("com.dreamteam4140.stop", "com.dreamteam4140.stop.OverlayActivity");
         overlayIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        overlayIntent.putExtra("secondsRelax", intent.getIntExtra("secondsRelax", 0));
         context.startActivity(overlayIntent);
 
 

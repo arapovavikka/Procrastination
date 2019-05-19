@@ -33,12 +33,12 @@
                 android:fontFamily="casual"
 
                 android:paddingStart="18dp"
+                android:paddingLeft="18dp"
                 android:text="@string/turnOfService"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="115dp"
-                tools:layout_editor_absoluteY="29dp"
-                android:paddingLeft="18dp" />
+                tools:layout_editor_absoluteY="29dp" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/turnOnAndOfServiceSwitch"
@@ -77,9 +77,9 @@
                     android:layout_weight="50"
                     android:paddingStart="14dp"
                     android:paddingLeft="14dp"
-                    android:text="00:00"
+                    android:text="00:00:00"
                     android:textColor="@color/textColorBlack"
-                    android:textSize="96sp"
+                    android:textSize="80sp"
                     tools:layout_editor_absoluteX="118dp"
                     tools:layout_editor_absoluteY="270dp" />
 
@@ -105,8 +105,8 @@
                     android:id="@+id/sliderButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/backgroundTimer"
                     android:layout_weight="20"
+                    android:background="@color/backgroundTimer"
                     android:contentDescription="TODO"
                     android:src="@mipmap/slider_button" />
 
@@ -146,19 +146,18 @@
             android:id="@+id/timerTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#EEEEEE"
+            android:onClick="openSetTimer"
             android:paddingVertical="16dp"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="50dp"
             android:paddingRight="50dp"
-            android:onClick="openSetTimer"
             android:text="@string/timer_name"
             android:textColor="@color/textColor"
             android:textSize="24sp"
-            android:background="#EEEEEE"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
         <TextView
             android:id="@+id/timeForUsingPhoneTextView"
@@ -191,6 +190,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
+        android:id="@+id/relaxTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
@@ -201,7 +201,6 @@
         android:paddingLeft="18dp"
         android:text="00 Ч 00 мин"
         android:textColor="@color/textColorAccent"
-        android:id="@+id/relaxTextView"
         android:textSize="60sp" />
 
 
