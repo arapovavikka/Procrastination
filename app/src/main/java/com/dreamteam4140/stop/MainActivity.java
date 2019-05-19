@@ -87,21 +87,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.formulaButton: {
                 //some activity
                 Log.i(TAG, "click on formula");
-                 String [ ] hourAndMinutesArray=timerTextView.getText().toString().split(":");
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + Integer.parseInt(hourAndMinutesArray[0]));
-                calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + Integer.parseInt(hourAndMinutesArray[1]));
-                //calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + 20);
-                alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-                Toast.makeText(getApplicationContext(), "Установлен таймер на "+ hourAndMinutesArray[1]+" минут!", Toast.LENGTH_LONG).show();
-                save();
-                ExitActivity.exitApplication(getApplicationContext());
                 break;
             }
             case R.id.passwordButton: {
                 Intent navigationIntent = new Intent(this, SettingsPasswordActivity.class);
                 navigationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(navigationIntent);
+
+
 
                 break;
             }
@@ -309,14 +302,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 private void setTimerStatus (TimerSTATUS status){
         switch (status){
             case STARTING:{
-                Log.d(TAG, "Seconds"+seconds );
-                timer.start(timerTextView, seconds, buttonStart);
+               timer.start(timerTextView, seconds, buttonStart);
                 Log.d(TAG, "Turn On Timer " );
+                setOverlayTimer(false,
+                        Timer.getSecondsByTimerTextView(timerTextView.getText().toString()),
+                        timerTextView.getText().toString(),true);
                 break;
             }
             case PAUSE:{
                 try {
-                    timer.pause(timerTextView);
+                   timer.pause(timerTextView);
+                   pendingIntent.cancel();
                 } catch (InterruptedException ignored) {
 
                 }
@@ -327,8 +323,10 @@ private void setTimerStatus (TimerSTATUS status){
                 Log.d(TAG, "Cancle Timer " );
                 try {
                     timer.cancle(timerTextView);
+                    pendingIntent.cancel();
+
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                   e.printStackTrace();
                 }
                 break;
             }
@@ -337,6 +335,28 @@ private void setTimerStatus (TimerSTATUS status){
 
 
 }
+
+private void setOverlayTimer (boolean isCloseApplication,int timeForOverlayTimer,String outPutString,boolean isOutPutAllowed){
+    Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
+    pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + timeForOverlayTimer);
+    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+    if(isOutPutAllowed) {
+        if (outPutString != null) {
+            Toast.makeText(getApplicationContext(), "Таймер прозвонит через: " + outPutString + " (чч:мм)", Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Установлен таймер на " + timeForOverlayTimer + "секунд!", Toast.LENGTH_LONG).show();
+        }
+    }
+    if(isCloseApplication) {
+        save();
+        ExitActivity.exitApplication(getApplicationContext());
+    }
+}
+
 }
 
 /*  private void controlService(boolean turnOnService, boolean timerIsStarted) {
