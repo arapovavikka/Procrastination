@@ -39,8 +39,7 @@ public class OverlayActivity extends AppCompatActivity {
         return false;
     }
     public void closeOverlay(View view) {
-        Intent navigationIntent = new Intent(this, UnlockPasswordActivity.class);
+        Intent navigationIntent = new Intent(this, TortureActivity.class);
         startActivity(navigationIntent);
-        //ExitActivity.exitApplication(getApplicationContext());
     }
 }

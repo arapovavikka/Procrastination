@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TortureActivity"></activity>
+        <activity android:name=".fragment.FragmentShake"></activity>
+        <activity android:name=".fragment.FragmentSlider" />
+        <activity android:name=".fragment.FragmentPassword" />
+        <activity android:name=".TortureActivity" />
         <activity android:name=".SettingsSliderActivity" />
         <activity android:name=".SettingsShakeActivity" />
         <activity
