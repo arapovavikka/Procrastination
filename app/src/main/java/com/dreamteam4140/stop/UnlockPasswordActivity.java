@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dreamteam4140.stop.activity.ExitActivity;
+import com.dreamteam4140.stop.model.AppPreferences;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -39,6 +42,8 @@ public class UnlockPasswordActivity extends AppCompatActivity implements View.On
     private TextView textView10;
     private TextView textView11;
 
+    private String _passwordSetting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,8 @@ public class UnlockPasswordActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_unlock_password);
         initialize();
         setOnClickListeners();
+
+        _passwordSetting = AppPreferences.GetInstance(getApplicationContext()).getString(AppPreferences.Key.SETTINGS_PASSWORD_STR);
         _passwordEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -61,6 +68,10 @@ public class UnlockPasswordActivity extends AppCompatActivity implements View.On
                     _clearButton.setVisibility(View.GONE);
                 }
                 _passwordEditText.setSelection(_passwordEditText.getText().length());
+                if (_passwordEditText.equals(_passwordSetting))
+                {
+                    ExitActivity.exitApplication(getApplicationContext());
+                }
             }
 
             @Override

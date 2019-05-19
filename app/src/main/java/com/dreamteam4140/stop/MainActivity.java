@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -308,10 +309,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setTimerStatus(TimerSTATUS status) {
         switch (status) {
             case STARTING: {
-                Log.d(TAG, "seconds Before overlay: " + seconds);
-                timer.start(timerTextView, seconds, buttonStart);
+                Log.d(TAG, "seconds Before overlay: " + timer.getSecondsByTimerTextView(timerTextView.getText().toString()));
                 setOverlayTimer(false,
-                        seconds, true);
+                        timer.getSecondsByTimerTextView(timerTextView.getText().toString()), true);
+                timer.start(timerTextView, seconds, buttonStart);
                 Log.d(TAG, "Turn On Timer ");
 
                 break;
@@ -337,11 +338,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             }
-
         }
-
-
     }
+
+
 
     private void setOverlayTimer(boolean isCloseApplication, int timeForOverlayTimer, boolean isOutPutAllowed) {
         Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
@@ -362,83 +362,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-}
+    private void setOverlayTimer(boolean isCloseApplication, int timeForOverlayTimer, String outPutString, boolean isOutPutAllowed) {
+        Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
 
-/*  private void controlService(boolean turnOnService, boolean timerIsStarted) {
-        buttonStart.setImageResource(R.mipmap.ic_pause_timer);
-        Log.d(TAG, "turnOnService " + turnOnService);
-        if (turnOnService) {
-            turnOnAndOfServiceText.setText(res.getText(R.string.turnOnService));
-            turnOnAndOfServiceSwitch.setActivated(true);
-            buttonStart.setActivated(true);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + timeForOverlayTimer);
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+        if (isOutPutAllowed) {
+            if (outPutString != null) {
+                Toast.makeText(getApplicationContext(), "Таймер прозвонит через: " + outPutString + " (чч:мм)", Toast.LENGTH_LONG).show();
 
-
-        } else {
-            turnOnAndOfServiceText
-                    .setText(res.getText(R.string.turnOfService));
-            turnOnAndOfServiceSwitch.setActivated(false);
-            buttonStart.setActivated(false);
-            try {
-                timer.cancle(timerTextView);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } else {
+                Toast.makeText(getApplicationContext(), "Установлен таймер на " + timeForOverlayTimer + "секунд!", Toast.LENGTH_LONG).show();
             }
-            Log.d(TAG, "Change button image");
-            buttonStart.setImageResource(R.mipmap.ic_start_timer);
         }
-
-
-    }*/
-
-
-/*{
-
-    private PendingIntent pendingIntent;
-    AlarmManager alarmManager;
-
-    SwitchCompat serviceSwitch;
-    TextView serviceTextView;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        serviceTextView = findViewById(R.id.turnOnOfServiceText);
-
-        serviceSwitch = findViewById(R.id.turnOnOfServiceSwitch);
-        serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    serviceTextView.setText(getString(R.string.service_on_text));
-                    ActivateTimerClick();
-                }
-                else {
-                    serviceTextView.setText(getString(R.string.service_off_text));
-                }
-            }
-        });
+        if (isCloseApplication) {
+            save();
+            ExitActivity.exitApplication(getApplicationContext());
+        }
     }
-
-    public void ActivateTimerClick()
-    {
-        int relaxMin = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0);
-        int relaxHour = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0);
-        if (relaxHour != 0 && relaxMin != 0)
-            relaxTextView.setText(relaxHour + "Ч " + relaxMin + " мин");
-    }
-
-    public void openSetTimer(View view) {
-        Intent navigationIntent = new Intent(this, SetTimerActivity.class);
-        startActivity(navigationIntent);
-    }
-
-    public void navigateToPassword(View view) {
-        Intent navigationIntent = new Intent(this, SettingsPasswordActivity.class);
-        startActivity(navigationIntent);
-    }
-
 }
-*/

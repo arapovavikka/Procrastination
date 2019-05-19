@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dreamteam4140.stop"
     android:versionCode="2">
-
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,9 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fragment.FragmentShake"></activity>
-        <activity android:name=".fragment.FragmentSlider" />
-        <activity android:name=".fragment.FragmentPassword" />
         <activity android:name=".TortureActivity" />
         <activity android:name=".SettingsSliderActivity" />
         <activity android:name=".SettingsShakeActivity" />
@@ -22,7 +19,13 @@
             android:theme="@android:style/Theme.NoDisplay" />
         <activity android:name=".UnlockPasswordActivity" />
         <activity android:name=".SettingsPasswordActivity" />
-        <activity android:name=".OverlayActivity" />
+        <activity android:name=".OverlayActivity" >
+            <intent-filter >
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.HOME" />
+            <category android:name="android.intent.category.DEFAULT" />
+
+        </intent-filter></activity>
         <activity android:name=".SetTimerActivity" />
         <activity android:name=".InstructionActivity" />
         <activity android:name=".MainActivity">
