@@ -50,13 +50,13 @@ public class TortureActivity extends AppCompatActivity {
              transaction.add(R.id.container, _sliderFragment, TAG_SLIDER);
              transaction.commit();
          }
-         /*if(_passwordEnabled)
+         if(_passwordEnabled)
          {
              //по умолчанию экран слайдера
              FragmentTransaction transaction = _fragmentManager.beginTransaction();
              transaction.add(R.id.container, _passwordFragment, TAG_SLIDER);
              transaction.commit();
-         }*/
+         }
 
 
     }

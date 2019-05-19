@@ -29,6 +29,10 @@ public class SetTimerActivity extends Activity {
 
     private boolean _timerRelax;
 
+    //constraints from documentation
+    private boolean _minRelaxMinutes;
+    private boolean _maxWorkHours;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,9 @@ public class SetTimerActivity extends Activity {
         _minutesTextView = findViewById(R.id.minutesTextView);
       setStartTime();
     }
+
+
+
 
     public void plusHourClicked(View view)
     {
@@ -56,6 +63,8 @@ public class SetTimerActivity extends Activity {
 
         _hourTextView.setText(NumberToStr(number));
     }
+
+    //public int CheckDocumentationConstraint()
 
     public int CheckConstraint(int value, int maxValue, Operation sign, TimeType timeType)
     {
@@ -163,12 +172,26 @@ public class SetTimerActivity extends Activity {
 
         if (_timerRelax) {
             _hourTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_HOUR, 0)));
-            _minutesTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 0)));
+            Integer dgt = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_RELAX_TIME_MIN, 30);
+            if (dgt < 30)
+                dgt = 30;
+            _minutesTextView.setText(NumberToStr(dgt));
         }
 
         else{
-            _hourTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, 0)));
-            _minutesTextView.setText(NumberToStr(AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,0)));
+            Integer dgtHour = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_HOUR, 0);
+            Integer dgtMinute = AppPreferences.GetInstance(getApplicationContext()).getInt(AppPreferences.Key.SETTINGS_WORK_TIME_MIN,1);
+            if (dgtHour < 3 || (dgtHour == 3 && dgtMinute == 0))
+            {
+                _hourTextView.setText(NumberToStr(dgtHour));
+                _minutesTextView.setText(NumberToStr(dgtMinute));
+            }
+            else
+            {
+                _hourTextView.setText(NumberToStr(3));
+                _minutesTextView.setText(NumberToStr(0));
+            }
+
         }
     }
 }
