@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             appPreferences.put(AppPreferences.Key.TIMER_TIME, timer.getTimeInSeconds());
         }
         else {
-            appPreferences.put(AppPreferences.Key.TIMER_TIME, Timer.getSecondsByTimerTextView(timerTextView.getText().toString()));
+            appPreferences.put(AppPreferences.Key.TIMER_TIME, timer.getSecondsByTimerTextView(timerTextView.getText().toString()));
         }
         Log.i(TAG, "seconds Saved "+   appPreferences.getInt(AppPreferences.Key.TIMER_TIME));
 
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         appPreferences.getInt(AppPreferences.Key.TIMER_TIME));
             } else{
                 seconds = appPreferences.getInt(AppPreferences.Key.TIMER_TIME);
-                timerTextView.setText(Timer.getByTimerTextViewSeconds(seconds));
+                timerTextView.setText(timer.getHoursAndMinutes(seconds));
         }
             setServiceStatus(appPreferences.getBool(AppPreferences.Key.TURN_ON_OF_SERVICE));
             setTimerStatus(timerStarted);
@@ -302,11 +302,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 private void setTimerStatus (TimerSTATUS status){
         switch (status){
             case STARTING:{
+                Log.d(TAG, "seconds Before overlay: "+seconds );
                timer.start(timerTextView, seconds, buttonStart);
-                Log.d(TAG, "Turn On Timer " );
                 setOverlayTimer(false,
-                        Timer.getSecondsByTimerTextView(timerTextView.getText().toString()),
-                        timerTextView.getText().toString(),true);
+                        seconds, true);
+                Log.d(TAG, "Turn On Timer " );
+
                 break;
             }
             case PAUSE:{
@@ -336,7 +337,7 @@ private void setTimerStatus (TimerSTATUS status){
 
 }
 
-private void setOverlayTimer (boolean isCloseApplication,int timeForOverlayTimer,String outPutString,boolean isOutPutAllowed){
+private void setOverlayTimer (boolean isCloseApplication,int timeForOverlayTimer,boolean isOutPutAllowed){
     Intent myIntent = new Intent(MainActivity.this, TimerReceiver.class);
     pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
 
@@ -344,12 +345,9 @@ private void setOverlayTimer (boolean isCloseApplication,int timeForOverlayTimer
     calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + timeForOverlayTimer);
     alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
     if(isOutPutAllowed) {
-        if (outPutString != null) {
-            Toast.makeText(getApplicationContext(), "Таймер прозвонит через: " + outPutString + " (чч:мм)", Toast.LENGTH_LONG).show();
 
-        } else {
-            Toast.makeText(getApplicationContext(), "Установлен таймер на " + timeForOverlayTimer + "секунд!", Toast.LENGTH_LONG).show();
-        }
+            Toast.makeText(getApplicationContext(), "Таймер прозвонит через " + timer.getHoursMinutesAndSeconds(seconds) + "(чч::мм:cc)!", Toast.LENGTH_LONG).show();
+
     }
     if(isCloseApplication) {
         save();

@@ -89,24 +89,41 @@ public class Timer {
 
     }
 
+    @SuppressLint("DefaultLocale")
+    public String getHoursMinutesAndSeconds(int seconds) {
+        int hours = seconds / 3600;
+        int minutes = (seconds - hours * 3600) / 60;
+        int secondCount =seconds-(hours*3600+minutes*60);
+        return (String.format("%02d", hours) + ":"
+                + String.format("%02d", minutes)+":"+String.format("%02d", secondCount));
+
+    }
+
+
 
     public static  int getSecondsByHourAndMinutes(int hour,int minutes){
         return (hour*3600+minutes*60);
 
     }
-    public  static int  getSecondsByTimerTextView(String timerTextViewText){
+    public static  int getSecondsByHourMinutesAndSeconds(int hour,int minutes,int seconds){
+        return (hour*3600+minutes*60+seconds);
+
+    }
+    public   int  getSecondsByTimerTextView(String timerTextViewText){
         String [ ] hourAndMinutesArray=timerTextViewText.split(":");
 
 
         return (getSecondsByHourAndMinutes(Integer.parseInt(hourAndMinutesArray[0]),Integer.parseInt(hourAndMinutesArray[1])));
     }
-    public static String  getByTimerTextViewSeconds(int seconds){
-        int hours =seconds/3600;
-        int minutes =(seconds-hours*3600)/60;
+    public  static int  getSecondsByTimerTextViewWithSeconds(String timerTextViewText){
+        String [ ] hourAndMinutesArray=timerTextViewText.split(":");
 
-        return String.format("%02d", hours) + ":"
-                + String.format("%02d", minutes);
+
+        return (getSecondsByHourMinutesAndSeconds(Integer.parseInt(hourAndMinutesArray[0]),
+                Integer.parseInt(hourAndMinutesArray[1]),Integer.parseInt(hourAndMinutesArray[2])));
     }
+
+
 
 
     public static   int  getStringByCurrentTime(Long time,int seconds){
@@ -122,14 +139,8 @@ public class Timer {
 
 
     }
-    public  String getTimerStringBySeconds(int seconds) {
-        //draft is: 00 Ч 00 мин
-        int hours=seconds/3600;
-        int minutes=(seconds-hours*3600)/60;
-        return String.format(res.getString(R.string.timer), hours,minutes);
-    }
 
-    public static int subtractTwoDate(Calendar minuend,Calendar difference){
+    private static int subtractTwoDate(Calendar minuend,Calendar difference){
         int hours;
         if(difference.get(Calendar.DAY_OF_MONTH)<minuend.get(Calendar.DAY_OF_MONTH)){
             hours=minuend.get(Calendar.HOUR)+24-difference.get(Calendar.HOUR);
