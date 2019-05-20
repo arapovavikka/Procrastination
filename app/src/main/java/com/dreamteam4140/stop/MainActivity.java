@@ -88,8 +88,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.formulaButton: {
-                //some activity
-                Log.i(TAG, "click on formula");
+                Intent navigationIntent = new Intent(this, SettingsMathActivity.class);
+                navigationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(navigationIntent);
                 break;
             }
             case R.id.passwordButton: {

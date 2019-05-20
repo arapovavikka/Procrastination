@@ -28,6 +28,7 @@
         </intent-filter></activity>
         <activity android:name=".SetTimerActivity" />
         <activity android:name=".InstructionActivity" />
+        <activity android:name=".SettingsMathActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

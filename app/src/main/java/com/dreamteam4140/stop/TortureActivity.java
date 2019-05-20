@@ -43,20 +43,45 @@ public class TortureActivity extends AppCompatActivity {
         _passwordEnabled = AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.PASSWORD_ENABLED, false);
         _shakerEnabled = AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.SHAKER_ENABLED, false);
         _sliderEnabled = AppPreferences.GetInstance(getApplicationContext()).getBool(AppPreferences.Key.SLIDER_ENABLED, false);
-         if (!_passwordEnabled && !_shakerEnabled && !_sliderEnabled)
+
+
+        FragmentTransaction transaction = _fragmentManager.beginTransaction();
+        transaction.add(R.id.container, _sliderFragment, TAG_SLIDER);
+        transaction.commit();
+
+
+
+
+
+         /*if (!_passwordEnabled && !_shakerEnabled && !_sliderEnabled)
          {
              //по умолчанию экран слайдера
              FragmentTransaction transaction = _fragmentManager.beginTransaction();
              transaction.add(R.id.container, _sliderFragment, TAG_SLIDER);
              transaction.commit();
-         }
-         if(_passwordEnabled)
+         } else
          {
-             //по умолчанию экран слайдера
-             FragmentTransaction transaction = _fragmentManager.beginTransaction();
-             transaction.add(R.id.container, _passwordFragment, TAG_SLIDER);
-             transaction.commit();
-         }
+             if(_passwordEnabled)
+             {
+             /*if(_shakerEnabled)
+             {
+                 FragmentTransaction transaction = _fragmentManager.beginTransaction();
+                 transaction.add(R.id.container, _shakeFragment, TAG_SLIDER);
+                 transaction.commit();
+             }
+
+                 FragmentTransaction transaction = _fragmentManager.beginTransaction();
+                 transaction.add(R.id.container, _passwordFragment, TAG_SLIDER);
+                 transaction.commit();
+
+             } else
+             {
+                 FragmentTransaction transaction = _fragmentManager.beginTransaction();
+                 transaction.add(R.id.container, _sliderFragment, TAG_SLIDER);
+                 transaction.commit();
+             }
+         }*/
+
 
 
     }

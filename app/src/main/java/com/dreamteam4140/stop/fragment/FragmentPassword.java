@@ -101,31 +101,31 @@ public class FragmentPassword extends Fragment implements View.OnClickListener {
         ArrayList<Integer> randomArrayList = getRandomArrayList(0,9);
         _clearButton = view.findViewById(R.id.buttonClear);
 
-        button2 = view.findViewById(R.id.button2);
+        button2 = view.findViewById(R.id.textView29);
         button2.setText(String.valueOf(randomArrayList.get(0)));
 
-        button3 = view.findViewById(R.id.button3);
+        button3 = view.findViewById(R.id.textView30);
         button3.setText(String.valueOf(randomArrayList.get(1)));
 
-        textView4 = view.findViewById(R.id.textView4);
+        textView4 = view.findViewById(R.id.textView35);
         textView4.setText(String.valueOf(randomArrayList.get(2)));
 
-        textView5 = view.findViewById(R.id.textView5);
+        textView5 = view.findViewById(R.id.textView36);
         textView5.setText(String.valueOf(randomArrayList.get(3)));
 
-        textView6 = view.findViewById(R.id.textView6);
+        textView6 = view.findViewById(R.id.textView37);
         textView6.setText(String.valueOf(randomArrayList.get(4)));
 
-        textView7 = view.findViewById(R.id.textView7);
+        textView7 = view.findViewById(R.id.textView38);
         textView7.setText(String.valueOf(randomArrayList.get(5)));
 
-        textView8 = view.findViewById(R.id.textView8);
+        textView8 = view.findViewById(R.id.textView39);
         textView8.setText(String.valueOf(randomArrayList.get(6)));
 
-        textView9 = view.findViewById(R.id.textView9);
+        textView9 = view.findViewById(R.id.textView40);
         textView9.setText(String.valueOf(randomArrayList.get(7)));
 
-        textView10 = view.findViewById(R.id.textView10);
+        textView10 = view.findViewById(R.id.textView45);
         textView10.setText(String.valueOf(randomArrayList.get(8)));
 
         _upperLeftButton = view.findViewById(R.id.upperLeftButton);

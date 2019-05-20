@@ -177,7 +177,7 @@
             android:background="@color/White"
             android:textAlignment="center"
             android:textColor="#673AB7"
-            android:text="Проверить"
+            android:text="Сохранить"
             tools:targetApi="jelly_bean" />
 
 
